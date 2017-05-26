@@ -24,8 +24,6 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
     private Vehiculo vehiculo;
     private Agencia agencia;
 
-    private boolean pasoCliente = false;
-
     /**
      * Creates new form diaCrearReserva
      */
@@ -35,9 +33,6 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
         padre = (VentanaPrincipal) parent;
         reserva = new Reserva();
-
-        // Cargamos la agencia 1 por defecto
-        agencia = padre.em.find(Agencia.class, 1);
 
         for (Cliente c : padre.listaClientesVistaClientes) {
             cmbClientes.addItem(c);
@@ -55,16 +50,13 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         padre = (VentanaPrincipal) parent;
         reserva = new Reserva();
 
-        // Cargamos la agencia 1 por defecto
-        agencia = padre.em.find(Agencia.class, 1);
-
         cmbClientes.addItem(cliente);
 
         for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
             cmbVehiculos.addItem(v);
         }
     }
-    
+
     public DiaCrearModificarReserva(Frame parent, boolean modal, Reserva reserva) {
         super(parent, modal);
         initComponents();
@@ -72,28 +64,25 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         padre = (VentanaPrincipal) parent;
         this.reserva = reserva;
 
-        // Cargamos la agencia 1 por defecto
-        agencia = padre.em.find(Agencia.class, 1);
-
         for (Cliente c : padre.listaClientesVistaClientes) {
             cmbClientes.addItem(c);
         }
 
         for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
             cmbVehiculos.addItem(v);
-        } 
-        
+        }
+
         lblTitulo.setText("ACTUALIZAR RESERVA");
-                
+
         cmbClientes.setSelectedItem(reserva.getClienteId());
         cmbVehiculos.setSelectedItem(reserva.getVehiculoId());
-        
-        dtpFechaInicio.setDate(reserva.getFechaInicio());        
+
+        dtpFechaInicio.setDate(reserva.getFechaInicio());
         dtpFechaFin.setDate(reserva.getFechaFin());
-        
+
         txtLitrosGasolina.setText(String.valueOf(reserva.getLitrosGasolina()));
         txtPrecio.setText(String.valueOf(reserva.getPrecioDia()));
-        
+
         chkDevuelto.setSelected(reserva.getDevuelto());
         chkEntregado.setSelected(reserva.getEntregado());
     }
@@ -260,10 +249,12 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
             cliente = (Cliente) cmbClientes.getSelectedItem();
             vehiculo = (Vehiculo) cmbVehiculos.getSelectedItem();
-            
+
             reserva.setClienteId(cliente);
             reserva.setVehiculoId(vehiculo);
 
+            // Cargamos la agencia 1 por defecto
+            agencia = padre.em.find(Agencia.class, 1);
             reserva.setAgenciaId(agencia);
 
             reserva.setDevuelto(chkDevuelto.isSelected());
@@ -279,13 +270,12 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
             padre.em.getTransaction().begin();
             padre.em.persist(reserva);
+            padre.em.getTransaction().commit();
 
             // Refrescamos el cliente y el vehículo involucrados
             // para que muestre bien las listas
             padre.em.refresh(cliente);
             padre.em.refresh(vehiculo);
-
-            padre.em.getTransaction().commit();
 
             padre.cargarDatos();
             padre.repaint();

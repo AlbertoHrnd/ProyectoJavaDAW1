@@ -172,10 +172,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblReservas = new javax.swing.JTable();
         jMenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
+        menuItemNuevoCliente = new javax.swing.JMenuItem();
+        menuItemNuevaReserva = new javax.swing.JMenuItem();
+        menuItemNuevoVehiculo = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menuItemCerrar = new javax.swing.JMenuItem();
         menuVer = new javax.swing.JMenu();
         menuItemVerClientes = new javax.swing.JMenuItem();
-        menuItemVerVehiculos = new javax.swing.JMenuItem();
         menuItemVerReservas = new javax.swing.JMenuItem();
+        menuItemVerVehiculos = new javax.swing.JMenuItem();
 
         pMenuItemNuevaReserva.setText("Nueva Reserva");
         pMenuItemNuevaReserva.addActionListener(new java.awt.event.ActionListener() {
@@ -501,6 +506,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         menuArchivo.setText("Archivo");
+
+        menuItemNuevoCliente.setText("Nuevo cliente");
+        menuItemNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemNuevoClienteActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemNuevoCliente);
+
+        menuItemNuevaReserva.setText("Nueva reserva");
+        menuItemNuevaReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemNuevaReservaActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemNuevaReserva);
+
+        menuItemNuevoVehiculo.setText("Nuevo vehículo");
+        menuArchivo.add(menuItemNuevoVehiculo);
+        menuArchivo.add(jSeparator1);
+
+        menuItemCerrar.setText("Salir");
+        menuItemCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCerrarActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemCerrar);
+
         jMenuBar.add(menuArchivo);
 
         menuVer.setText("Ver");
@@ -513,14 +547,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         menuVer.add(menuItemVerClientes);
 
-        menuItemVerVehiculos.setText("Vehículos");
-        menuItemVerVehiculos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemVerVehiculosActionPerformed(evt);
-            }
-        });
-        menuVer.add(menuItemVerVehiculos);
-
         menuItemVerReservas.setText("Reservas");
         menuItemVerReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,6 +554,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         menuVer.add(menuItemVerReservas);
+
+        menuItemVerVehiculos.setText("Vehículos");
+        menuItemVerVehiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVerVehiculosActionPerformed(evt);
+            }
+        });
+        menuVer.add(menuItemVerVehiculos);
 
         jMenuBar.add(menuVer);
 
@@ -589,10 +623,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void btnNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoClienteActionPerformed
-        DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
-
-        diaCrearCliente.setLocationRelativeTo(this);
-        diaCrearCliente.setVisible(true);
+        nuevoCliente();
     }//GEN-LAST:event_btnNuevoClienteActionPerformed
 
     private void btnModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClienteActionPerformed
@@ -614,8 +645,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             int dialogResult = JOptionPane.showConfirmDialog(
                     null,
                     "Vas a eliminar al cliente seleccionado!!\n"
-                            + "También eliminarás todas las reservas de ese cliente!!\n"
-                            + "¿Estás seguro?",
+                    + "También eliminarás todas las reservas de ese cliente!!\n"
+                    + "¿Estás seguro?",
                     "Eliminar cliente",
                     JOptionPane.YES_NO_OPTION);
 
@@ -659,9 +690,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tblClientesMousePressed
 
     private void btnNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaReservaActionPerformed
-        DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true);
-        diaCrearReserva.setLocationRelativeTo(this);
-        diaCrearReserva.setVisible(true);
+        nuevaReserva();
     }//GEN-LAST:event_btnNuevaReservaActionPerformed
 
     private void btnModificarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarReservaActionPerformed
@@ -701,6 +730,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblReservasMousePressed
 
+    private void menuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevoClienteActionPerformed
+        nuevoCliente();
+    }//GEN-LAST:event_menuItemNuevoClienteActionPerformed
+
+    private void menuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuItemCerrarActionPerformed
+
+    private void menuItemNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevaReservaActionPerformed
+        nuevaReserva();
+    }//GEN-LAST:event_menuItemNuevaReservaActionPerformed
+
+    private void nuevoCliente() {
+        DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
+        diaCrearCliente.setLocationRelativeTo(this);
+        diaCrearCliente.setVisible(true);
+    }
+
+    private void nuevaReserva() {
+        DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true);
+        diaCrearReserva.setLocationRelativeTo(this);
+        diaCrearReserva.setVisible(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager AlquilerVehiculosPUEntityManager;
     private javax.swing.JButton btnBuscarCliente;
@@ -718,12 +770,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblBuscarClienteApellidos;
     private javax.swing.JLabel lblBuscarClienteNombre;
     private javax.swing.JLabel lblTituloListaReservas;
     private javax.swing.JLabel lblTituloPnlReservas;
     private javax.swing.JList lstReservasVistaClientes;
     private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenuItem menuItemCerrar;
+    private javax.swing.JMenuItem menuItemNuevaReserva;
+    private javax.swing.JMenuItem menuItemNuevoCliente;
+    private javax.swing.JMenuItem menuItemNuevoVehiculo;
     private javax.swing.JMenuItem menuItemVerClientes;
     private javax.swing.JMenuItem menuItemVerReservas;
     private javax.swing.JMenuItem menuItemVerVehiculos;
