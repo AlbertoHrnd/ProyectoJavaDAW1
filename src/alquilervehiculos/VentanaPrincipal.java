@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Reserva;
 import model.Vehiculo;
@@ -79,11 +80,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 return o1.getApellidos().compareTo(o2.getApellidos());
             }
         });
-        
+
         for (Cliente c : clientes) {
             listaClientesVistaClientes.add(c);
         }
-        
+
         tblClientes.setModel(new TableModelClientes(listaClientesVistaClientes));
 
         listaReservasVistaClientes.clear();
@@ -109,7 +110,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         for (Reserva r : reservas) {
             listaReservasVistaReserva.add(r);
         }
-        
+
         tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
     }
 
@@ -606,7 +607,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarClienteActionPerformed
 
     private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
-        // TODO add your handling code here:
+        if (tblClientes.getSelectedRow() != -1) {
+            int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
+            Cliente c = listaClientesVistaClientes.get(i);
+
+            int dialogResult = JOptionPane.showConfirmDialog(
+                    null,
+                    "Vas a eliminar al cliente seleccionado!!\n"
+                            + "También eliminarás todas las reservas de ese cliente!!\n"
+                            + "¿Estás seguro?",
+                    "Eliminar cliente",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (dialogResult == JOptionPane.YES_OPTION) {
+
+                em.getTransaction().begin();
+                em.remove(c);
+                em.getTransaction().commit();
+
+                cargarDatos();
+            }
+        }
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     private void pMenuItemNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pMenuItemNuevaReservaActionPerformed
@@ -644,11 +665,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevaReservaActionPerformed
 
     private void btnModificarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarReservaActionPerformed
-        // TODO add your handling code here:
+        if (tblReservas.getSelectedRow() != -1) {
+            int i = tblReservas.convertRowIndexToModel(tblReservas.getSelectedRow());
+            Reserva r = listaReservasVistaReserva.get(i);
+
+            DiaCrearModificarReserva diaModificarReserva = new DiaCrearModificarReserva(this, true, r);
+            diaModificarReserva.setLocationRelativeTo(this);
+            diaModificarReserva.setVisible(true);
+        }
     }//GEN-LAST:event_btnModificarReservaActionPerformed
 
     private void btnEliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarReservaActionPerformed
-        // TODO add your handling code here:
+        if (tblReservas.getSelectedRow() != -1) {
+            int i = tblReservas.convertRowIndexToModel(tblReservas.getSelectedRow());
+            Reserva r = listaReservasVistaReserva.get(i);
+
+            int dialogResult = JOptionPane.showConfirmDialog(
+                    null,
+                    "Vas a eliminar la reserva seleccionada\n¿Estás seguro?",
+                    "Eliminar reserva",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (dialogResult == JOptionPane.YES_OPTION) {
+
+                em.getTransaction().begin();
+                em.remove(r);
+                em.getTransaction().commit();
+
+                cargarDatos();
+            }
+        }
     }//GEN-LAST:event_btnEliminarReservaActionPerformed
 
     private void tblReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMousePressed

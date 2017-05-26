@@ -64,6 +64,39 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             cmbVehiculos.addItem(v);
         }
     }
+    
+    public DiaCrearModificarReserva(Frame parent, boolean modal, Reserva reserva) {
+        super(parent, modal);
+        initComponents();
+
+        padre = (VentanaPrincipal) parent;
+        this.reserva = reserva;
+
+        // Cargamos la agencia 1 por defecto
+        agencia = padre.em.find(Agencia.class, 1);
+
+        for (Cliente c : padre.listaClientesVistaClientes) {
+            cmbClientes.addItem(c);
+        }
+
+        for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
+            cmbVehiculos.addItem(v);
+        } 
+        
+        lblTitulo.setText("ACTUALIZAR RESERVA");
+                
+        cmbClientes.setSelectedItem(reserva.getClienteId());
+        cmbVehiculos.setSelectedItem(reserva.getVehiculoId());
+        
+        dtpFechaInicio.setDate(reserva.getFechaInicio());        
+        dtpFechaFin.setDate(reserva.getFechaFin());
+        
+        txtLitrosGasolina.setText(String.valueOf(reserva.getLitrosGasolina()));
+        txtPrecio.setText(String.valueOf(reserva.getPrecioDia()));
+        
+        chkDevuelto.setSelected(reserva.getDevuelto());
+        chkEntregado.setSelected(reserva.getEntregado());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -247,6 +280,8 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             padre.em.getTransaction().begin();
             padre.em.persist(reserva);
 
+            // Refrescamos el cliente y el vehículo involucrados
+            // para que muestre bien las listas
             padre.em.refresh(cliente);
             padre.em.refresh(vehiculo);
 
