@@ -6,17 +6,14 @@
 package alquilervehiculos;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 import model.Cliente;
-import model.Garaje;
 import model.Reserva;
 import model.Vehiculo;
 
@@ -69,15 +66,50 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cargarReservas();
     }
 
+    public void cargarClientes() {
+        listaClientesVistaClientes.clear();
+
+        TypedQuery<Cliente> queryClientes = em.createNamedQuery("Cliente.findAll", Cliente.class);
+        List<Cliente> clientes = queryClientes.getResultList();
+
+        // Ordenamos los clientes por apellidos
+        clientes.sort(new Comparator<Cliente>() {
+            @Override
+            public int compare(Cliente o1, Cliente o2) {
+                return o1.getApellidos().compareTo(o2.getApellidos());
+            }
+        });
+        
+        for (Cliente c : clientes) {
+            listaClientesVistaClientes.add(c);
+        }
+        
+        tblClientes.setModel(new TableModelClientes(listaClientesVistaClientes));
+
+        listaReservasVistaClientes.clear();
+    }
+
     public void cargarReservas() {
         listaReservasVistaReserva.clear();
 
         TypedQuery<Reserva> queryReservas = em.createNamedQuery("Reserva.findAll", Reserva.class);
         List<Reserva> reservas = queryReservas.getResultList();
 
+        // Ordenamos las reservas por fecha de inicio descendiente
+        reservas.sort(new Comparator<Reserva>() {
+            @Override
+            public int compare(Reserva o1, Reserva o2) {
+                if (o1.getFechaInicio().before(o2.getFechaInicio())) {
+                    return 1;
+                }
+                return -1;
+            }
+        });
+
         for (Reserva r : reservas) {
             listaReservasVistaReserva.add(r);
         }
+        
         tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
     }
 
@@ -90,20 +122,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         for (Vehiculo v : vehiculos) {
             listaVehiculosVistaVehiculos.add(v);
         }
-    }
-
-    public void cargarClientes() {
-        listaClientesVistaClientes.clear();
-
-        TypedQuery<Cliente> queryClientes = em.createNamedQuery("Cliente.findAll", Cliente.class);
-        List<Cliente> clientes = queryClientes.getResultList();
-
-        for (Cliente c : clientes) {
-            listaClientesVistaClientes.add(c);
-        }
-        tblClientes.setModel(new TableModelClientes(listaClientesVistaClientes));
-
-        listaReservasVistaClientes.clear();
     }
 
     /**
