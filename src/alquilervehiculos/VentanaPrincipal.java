@@ -167,6 +167,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnNuevaReserva = new javax.swing.JButton();
         btnModificarReserva = new javax.swing.JButton();
         btnEliminarReserva = new javax.swing.JButton();
+        tbtnVerPendientesDevolucion = new javax.swing.JToggleButton();
         pnlCuerpoClientes1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblReservas = new javax.swing.JTable();
@@ -396,6 +397,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        tbtnVerPendientesDevolucion.setText("Pendientes de devolución");
+        tbtnVerPendientesDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnVerPendientesDevolucionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCabeceraReservasLayout = new javax.swing.GroupLayout(pnlCabeceraReservas);
         pnlCabeceraReservas.setLayout(pnlCabeceraReservasLayout);
         pnlCabeceraReservasLayout.setHorizontalGroup(
@@ -403,16 +411,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(873, Short.MAX_VALUE))
+                    .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
+                        .addComponent(btnNuevaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tbtnVerPendientesDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
+                        .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnModificarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlCabeceraReservasLayout.setVerticalGroup(
             pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCabeceraReservasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNuevaReserva)
+                .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevaReserva)
+                    .addComponent(tbtnVerPendientesDevolucion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificarReserva)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
@@ -733,6 +749,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         nuevaReserva();
     }//GEN-LAST:event_menuItemNuevaReservaActionPerformed
 
+    private void tbtnVerPendientesDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesDevolucionActionPerformed
+        if (tbtnVerPendientesDevolucion.isSelected()) {
+            List<Reserva> results = new ArrayList<>();
+            listaReservasVistaReserva.clear();
+
+            TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByDevuelto", Reserva.class);
+
+            query.setParameter("devuelto", false);
+            
+            results = query.getResultList();
+
+            for (Reserva r : results) {
+                listaReservasVistaReserva.add(r);
+            }
+
+            tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
+
+        } else {
+            cargarReservas();
+        }
+    }//GEN-LAST:event_tbtnVerPendientesDevolucionActionPerformed
+
     private void nuevoCliente() {
         DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
         diaCrearCliente.setLocationRelativeTo(this);
@@ -790,6 +828,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlVehiculos;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblReservas;
+    private javax.swing.JToggleButton tbtnVerPendientesDevolucion;
     private javax.swing.JTextField txtBuscarClienteApellidos;
     private javax.swing.JTextField txtBuscarClienteNombre;
     // End of variables declaration//GEN-END:variables
