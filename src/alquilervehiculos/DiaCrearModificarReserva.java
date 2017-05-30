@@ -247,6 +247,24 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         if (!txtLitrosGasolina.getText().trim().equals("")
                 && !txtPrecio.getText().trim().equals("")) {
 
+            // Comprobamos litros válidos
+            try {
+                int litros = Integer.parseInt(txtLitrosGasolina.getText());
+                reserva.setLitrosGasolina(litros);
+            } catch (Exception e) {
+                lblError.setText("El número de litros no es válido.");
+                return;
+            }
+
+            // Comprobamos precio válido
+            try {
+                double precioDia = Double.parseDouble(txtPrecio.getText());
+                reserva.setPrecioDia(BigDecimal.valueOf(precioDia));
+            } catch (Exception e) {
+                lblError.setText("El precio por día no es válido.");
+                return;
+            }
+
             cliente = (Cliente) cmbClientes.getSelectedItem();
             vehiculo = (Vehiculo) cmbVehiculos.getSelectedItem();
 
@@ -259,9 +277,6 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
             reserva.setDevuelto(chkDevuelto.isSelected());
             reserva.setEntregado(chkEntregado.isSelected());
-
-            reserva.setLitrosGasolina(Integer.parseInt(txtLitrosGasolina.getText()));
-            reserva.setPrecioDia(BigDecimal.valueOf(Double.parseDouble(txtPrecio.getText())));
 
             reserva.setFechaInicio(dtpFechaInicio.getDate());
             reserva.setFechaFin(dtpFechaFin.getDate());
