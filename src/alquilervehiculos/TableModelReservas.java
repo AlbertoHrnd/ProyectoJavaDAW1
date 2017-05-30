@@ -16,7 +16,7 @@ import model.Reserva;
  */
 public class TableModelReservas extends AbstractTableModel {
 
-    private String[] columnNames = {"Cliente", "Fecha Inicio", "Fecha Fin", "Entregado", "Devuelto", "Vehículo", "Precio total"};
+    private String[] columnNames = {"Cliente", "Fecha Inicio", "Fecha Fin", "Entregado", "Devuelto", "Vehículo", "Precio / día", "Precio total"};
     List<Reserva> listaReservas;
 
     public TableModelReservas(List<Reserva> listaReservas) {
@@ -34,7 +34,7 @@ public class TableModelReservas extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class TableModelReservas extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Reserva r = listaReservas.get(rowIndex);
-        
+
         switch (columnIndex) {
             case (0):
                 return r.getClienteId().getNombre() + " " + r.getClienteId().getApellidos();
@@ -60,6 +60,8 @@ public class TableModelReservas extends AbstractTableModel {
             case (5):
                 return r.getVehiculoId().getMarca() + " " + r.getVehiculoId().getModelo();
             case (6):
+                return r.getPrecioDia();
+            case (7):
                 return r.getPrecioTotal();
             default:
                 return null;
