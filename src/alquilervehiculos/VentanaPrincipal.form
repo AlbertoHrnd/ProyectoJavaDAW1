@@ -533,11 +533,13 @@
                                       <Component id="tbtnVerPendientesDevolucion" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnModificarReserva" alignment="0" min="-2" pref="194" max="-2" attributes="0"/>
-                                          <Component id="btnEliminarReserva" alignment="0" min="-2" pref="194" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="btnEliminarReserva" min="-2" pref="194" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btnModificarReserva" min="-2" pref="194" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="tbtnVerPendientesEntrega" min="-2" pref="200" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -553,7 +555,10 @@
                                   <Component id="tbtnVerPendientesDevolucion" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnModificarReserva" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnModificarReserva" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tbtnVerPendientesEntrega" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace pref="26" max="32767" attributes="0"/>
                               <Component id="btnEliminarReserva" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -598,6 +603,14 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbtnVerPendientesDevolucionActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JToggleButton" name="tbtnVerPendientesEntrega">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Pendientes de entrega"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbtnVerPendientesEntregaActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

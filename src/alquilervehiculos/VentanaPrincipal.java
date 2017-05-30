@@ -168,6 +168,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnModificarReserva = new javax.swing.JButton();
         btnEliminarReserva = new javax.swing.JButton();
         tbtnVerPendientesDevolucion = new javax.swing.JToggleButton();
+        tbtnVerPendientesEntrega = new javax.swing.JToggleButton();
         pnlCuerpoClientes1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblReservas = new javax.swing.JTable();
@@ -404,6 +405,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        tbtnVerPendientesEntrega.setText("Pendientes de entrega");
+        tbtnVerPendientesEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnVerPendientesEntregaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCabeceraReservasLayout = new javax.swing.GroupLayout(pnlCabeceraReservas);
         pnlCabeceraReservas.setLayout(pnlCabeceraReservasLayout);
         pnlCabeceraReservasLayout.setHorizontalGroup(
@@ -416,10 +424,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tbtnVerPendientesDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
-                        .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnModificarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnEliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
+                        .addComponent(btnModificarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tbtnVerPendientesEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlCabeceraReservasLayout.setVerticalGroup(
@@ -430,7 +440,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnNuevaReserva)
                     .addComponent(tbtnVerPendientesDevolucion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnModificarReserva)
+                .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificarReserva)
+                    .addComponent(tbtnVerPendientesEntrega))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(btnEliminarReserva)
                 .addContainerGap())
@@ -751,13 +763,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void tbtnVerPendientesDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesDevolucionActionPerformed
         if (tbtnVerPendientesDevolucion.isSelected()) {
+
             List<Reserva> results = new ArrayList<>();
             listaReservasVistaReserva.clear();
 
             TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByDevuelto", Reserva.class);
 
             query.setParameter("devuelto", false);
-            
+
             results = query.getResultList();
 
             for (Reserva r : results) {
@@ -766,10 +779,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
 
+            tbtnVerPendientesEntrega.setSelected(false);
+
         } else {
             cargarReservas();
         }
     }//GEN-LAST:event_tbtnVerPendientesDevolucionActionPerformed
+
+    private void tbtnVerPendientesEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesEntregaActionPerformed
+        if (tbtnVerPendientesEntrega.isSelected()) {
+
+            List<Reserva> results = new ArrayList<>();
+            listaReservasVistaReserva.clear();
+
+            TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByEntregado", Reserva.class);
+
+            query.setParameter("entregado", false);
+
+            results = query.getResultList();
+
+            for (Reserva r : results) {
+                listaReservasVistaReserva.add(r);
+            }
+
+            tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
+
+            tbtnVerPendientesDevolucion.setSelected(false);
+
+        } else {
+            cargarReservas();
+        }
+    }//GEN-LAST:event_tbtnVerPendientesEntregaActionPerformed
 
     private void nuevoCliente() {
         DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
@@ -782,6 +822,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         diaCrearReserva.setLocationRelativeTo(this);
         diaCrearReserva.setVisible(true);
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager AlquilerVehiculosPUEntityManager;
     private javax.swing.JButton btnBuscarCliente;
@@ -829,6 +870,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblReservas;
     private javax.swing.JToggleButton tbtnVerPendientesDevolucion;
+    private javax.swing.JToggleButton tbtnVerPendientesEntrega;
     private javax.swing.JTextField txtBuscarClienteApellidos;
     private javax.swing.JTextField txtBuscarClienteNombre;
     // End of variables declaration//GEN-END:variables
