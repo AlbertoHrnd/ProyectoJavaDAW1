@@ -420,11 +420,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tblReservas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblReservasMousePressed(evt);
-            }
-        });
         jScrollPane4.setViewportView(tblReservas);
 
         javax.swing.GroupLayout pnlCuerpoClientes1Layout = new javax.swing.GroupLayout(pnlCuerpoClientes1);
@@ -725,10 +720,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnEliminarReservaActionPerformed
-
-    private void tblReservasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblReservasMousePressed
 
     private void menuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevoClienteActionPerformed
         nuevoCliente();

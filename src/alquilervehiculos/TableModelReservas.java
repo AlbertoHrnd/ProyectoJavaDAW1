@@ -5,7 +5,6 @@
  */
 package alquilervehiculos;
 
-import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Reserva;
