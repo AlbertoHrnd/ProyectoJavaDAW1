@@ -6,6 +6,8 @@
 package alquilervehiculos;
 
 import java.awt.Frame;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.Cliente;
 
 /**
@@ -188,6 +190,10 @@ public class DiaCrearModificarCliente extends javax.swing.JDialog {
                 && !txtDni.getText().trim().equals("")
                 && !txtTelefono.getText().trim().equals("")) {
 
+            if (validaDni(txtDni.getText())) {
+
+                if (validaTelefono(txtTelefono.getText())) {
+
                     cliente.setNombre(txtNombre.getText());
                     cliente.setApellidos(txtApellidos.getText());
                     cliente.setDireccion(txtDireccion.getText());
@@ -202,11 +208,62 @@ public class DiaCrearModificarCliente extends javax.swing.JDialog {
                     padre.repaint();
 
                     this.dispose();
+
+                } else {
+                    lblError.setText("El teléfono introducido no es válido");
+                }
+
+            } else {
+                lblError.setText("El DNI introducido no es válido.");
+            }
+
         } else {
-            lblError.setText("Rellene todos los campos");
+            lblError.setText("Rellene todos los campos.");
         }
+    }
+
+    private boolean validaDni(String dni) {
+        boolean dniValido = false;
+
+        Pattern pattern = Pattern.compile("(\\d{8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
+
+        Matcher matcher = pattern.matcher(dni);
+
+        if (matcher.matches()) {
+
+            //Comentar siguiente línea y descomentar las demás
+            //para que compruebe la letra también
+            dniValido = true;
+
+//            String letra = matcher.group(2);
+//
+//            String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+//
+//            int index = Integer.parseInt(matcher.group(1));
+//
+//            index = index % 23;
+//
+//            String reference = letras.substring(index, index + 1);
+//
+//            if (reference.equalsIgnoreCase(letra)) {
+//                dniValido = true;
+//            } else {
+//                dniValido = false;
+//            }
+        } else {
+            dniValido = false;
+        }
+
+        return dniValido;
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    
+    private boolean validaTelefono(String telefono) {
+        Pattern pattern = Pattern.compile("\\d{9}");
+        Matcher matcher = pattern.matcher(telefono);        
+        return matcher.matches();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JPanel jPanel1;

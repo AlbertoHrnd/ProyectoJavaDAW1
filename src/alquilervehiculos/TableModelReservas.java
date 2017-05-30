@@ -45,7 +45,6 @@ public class TableModelReservas extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Reserva r = listaReservas.get(rowIndex);
-        BigDecimal precioDia = r.getPrecioDia();
         
         switch (columnIndex) {
             case (0):
