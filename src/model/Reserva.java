@@ -8,6 +8,7 @@ package model;
 import alquilervehiculos.Utils;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -172,6 +173,18 @@ public class Reserva implements Serializable {
 
     public void setVehiculoId(Vehiculo vehiculoId) {
         this.vehiculoId = vehiculoId;
+    }
+    
+    public BigDecimal getPrecioTotal() {
+        long dias = calculaDiasEntre(fechaInicio, fechaFin);
+        return precioDia.multiply(BigDecimal.valueOf(dias));
+    }
+    
+    private long calculaDiasEntre(Date fechaInicio, Date fechaFin) {        
+        long MILLISECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día
+        
+        long diferencia = ((fechaFin.getTime() - fechaInicio.getTime()) / MILLISECS_PER_DAY);
+        return diferencia;
     }
 
     @Override

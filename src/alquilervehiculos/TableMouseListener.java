@@ -21,10 +21,11 @@ public class TableMouseListener extends MouseAdapter{
     public TableMouseListener(JTable table) {
         this.table = table;
     }
-     
+        
     @Override
     public void mousePressed(MouseEvent event) {
-        // selects the row at which point the mouse is clicked
+        // Selecciona la fila en la que se pulsa el ratón
+        // Se implementa para que funcione al botón derecho sobre una fila
         Point point = event.getPoint();
         int currentRow = table.rowAtPoint(point);
         table.setRowSelectionInterval(currentRow, currentRow);

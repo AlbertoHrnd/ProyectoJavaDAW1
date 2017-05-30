@@ -12,10 +12,10 @@ import java.util.Date;
  *
  * @author Alberto
  */
-public class Utils {
+public class Utils {    
 
     public static String formateaFecha(Date fecha) {
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MMMM-yyyy");
         return formateador.format(fecha);
-    }
+    }    
 }

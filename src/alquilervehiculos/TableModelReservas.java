@@ -5,6 +5,7 @@
  */
 package alquilervehiculos;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Reserva;
@@ -15,7 +16,7 @@ import model.Reserva;
  */
 public class TableModelReservas extends AbstractTableModel {
 
-    private String[] columnNames = {"Cliente", "Fecha Inicio", "Fecha Fin", "Entregado", "Devuelto", "Vehículo"};
+    private String[] columnNames = {"Cliente", "Fecha Inicio", "Fecha Fin", "Entregado", "Devuelto", "Vehículo", "Precio total"};
     List<Reserva> listaReservas;
 
     public TableModelReservas(List<Reserva> listaReservas) {
@@ -33,7 +34,7 @@ public class TableModelReservas extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -44,6 +45,8 @@ public class TableModelReservas extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Reserva r = listaReservas.get(rowIndex);
+        BigDecimal precioDia = r.getPrecioDia();
+        
         switch (columnIndex) {
             case (0):
                 return r.getClienteId().getNombre() + " " + r.getClienteId().getApellidos();
@@ -57,6 +60,8 @@ public class TableModelReservas extends AbstractTableModel {
                 return r.getDevuelto();
             case (5):
                 return r.getVehiculoId().getMarca() + " " + r.getVehiculoId().getModelo();
+            case (6):
+                return r.getPrecioTotal();
             default:
                 return null;
         }
