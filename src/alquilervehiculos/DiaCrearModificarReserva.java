@@ -7,6 +7,9 @@ package alquilervehiculos;
 
 import java.awt.Frame;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.Query;
 import model.Agencia;
 import model.Cliente;
 import model.Reserva;
@@ -38,11 +41,11 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             cmbClientes.addItem(c);
         }
 
-        for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
-            cmbVehiculos.addItem(v);
-        }
+//        for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
+//            cmbVehiculos.addItem(v);
+//        }
     }
-    
+
     /**
      * Creates new form diaCrearModificarReserva pasando un cliente seleccionado
      */
@@ -55,13 +58,14 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
         cmbClientes.addItem(cliente);
 
-        for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
-            cmbVehiculos.addItem(v);
-        }
+//        for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
+//            cmbVehiculos.addItem(v);
+//        }
     }
-    
+
     /**
-     * Creates new form diaCrearModificarReserva pasando un vehículo seleccionado
+     * Creates new form diaCrearModificarReserva pasando un vehículo
+     * seleccionado
      */
     public DiaCrearModificarReserva(Frame parent, boolean modal, Vehiculo vehiculo) {
         super(parent, modal);
@@ -78,7 +82,8 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
     }
 
     /**
-     * Creates new form diaCrearModificarReserva pasando una reserva seleccionada a modificar
+     * Creates new form diaCrearModificarReserva pasando una reserva
+     * seleccionada a modificar
      */
     public DiaCrearModificarReserva(Frame parent, boolean modal, Reserva reserva) {
         super(parent, modal);
@@ -174,6 +179,12 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         chkEntregado.setText("Entregado");
 
         chkDevuelto.setText("Devuelto");
+
+        cmbVehiculos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cmbVehiculosFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -291,6 +302,12 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             cliente = (Cliente) cmbClientes.getSelectedItem();
             vehiculo = (Vehiculo) cmbVehiculos.getSelectedItem();
 
+            // Comprobamos selección vehículo
+            if (vehiculo == null) {
+                lblError.setText("Debes seleccionar un vehículo.");
+                return;
+            }
+
             reserva.setClienteId(cliente);
             reserva.setVehiculoId(vehiculo);
 
@@ -323,6 +340,47 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             lblError.setText("Rellene todos los campos");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void cmbVehiculosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbVehiculosFocusGained
+        Date ini = dtpFechaInicio.getDate();
+        Date fin = dtpFechaFin.getDate();
+
+        if (ini != null && fin != null) {
+            if (fin.after(ini)) {
+                compruebaDisponibilidad(dtpFechaInicio.getDate(), dtpFechaFin.getDate());
+            } else {
+                lblError.setText("<html>La fecha de inicio debe ser anterior a<br>la fecha de fin.</html>");
+            }
+        } else {
+            lblError.setText("<html>Debes seleccionar un rango de fechas<br>para comprobar la disponibilidad.</html>");
+        }
+    }//GEN-LAST:event_cmbVehiculosFocusGained
+
+    private void compruebaDisponibilidad(Date fechaInicio, Date fechaFin) {
+
+        Query q = padre.em.createNativeQuery("SELECT * from vehiculo where id NOT IN "
+                + "(SELECT vehiculo_id from reserva "
+                + "where (fecha_inicio between :inicio and :fin "
+                + "OR fecha_fin between :inicio and :fin) "
+                + "OR (fecha_inicio < :inicio AND fecha_fin > :fin))", Vehiculo.class);
+
+        q.setParameter("inicio", fechaInicio);
+        q.setParameter("fin", fechaFin);
+
+        List<Vehiculo> listaVehiculos = q.getResultList();
+
+        cmbVehiculos.removeAllItems();
+
+        if (listaVehiculos == null) {
+            cmbVehiculos.setEnabled(false);
+        } else {
+            for (Vehiculo v : listaVehiculos) {
+                cmbVehiculos.addItem(v);
+            }
+            cmbVehiculos.setEnabled(true);
+            cmbVehiculos.showPopup();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
