@@ -14,6 +14,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import model.Cliente;
 import model.Reserva;
 import model.Vehiculo;
@@ -45,18 +46,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         listaClientesVistaClientes = new ArrayList<>();
         listaReservasVistaClientes = new DefaultListModel<>();
+        
         listaReservasVistaReserva = new ArrayList<>();
-        listaReservasVistaVehiculos = new DefaultListModel<>();
+        
         listaVehiculosVistaVehiculos = new ArrayList<>();
+        listaReservasVistaVehiculos = new DefaultListModel<>();
 
         tblClientes.setAutoCreateRowSorter(true);
-        tblClientes.setComponentPopupMenu(pMenuTablaCLientes);
+        tblClientes.setComponentPopupMenu(pMenuTabla);
 
         tblReservas.setAutoCreateRowSorter(true);
+        
+        tblVehiculos.setAutoCreateRowSorter(true);
+        tblVehiculos.setComponentPopupMenu(pMenuTabla);        
 
         // Listener para seleccionar la fila de la tabla cuando botón derecho
         tblClientes.addMouseListener(new TableMouseListener(tblClientes));
-        tblReservas.addMouseListener(new TableMouseListener(tblReservas));
+        tblVehiculos.addMouseListener(new TableMouseListener(tblReservas));
 
         cargarDatos();
     }
@@ -119,10 +125,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         TypedQuery<Vehiculo> queryVehiculos = em.createNamedQuery("Vehiculo.findAll", Vehiculo.class);
         List<Vehiculo> vehiculos = queryVehiculos.getResultList();
+        
+        // Ordenamos los vehículos por marca
+        vehiculos.sort(new Comparator<Vehiculo>() {
+            @Override
+            public int compare(Vehiculo o1, Vehiculo o2) {
+                return o1.getMarca().compareTo(o2.getMarca());
+            }
+        });
 
         for (Vehiculo v : vehiculos) {
             listaVehiculosVistaVehiculos.add(v);
         }
+        
+        tblVehiculos.setModel(new TableModelVehiculos(listaVehiculosVistaVehiculos));
     }
 
     /**
@@ -137,7 +153,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         AlquilerVehiculosPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("AlquilerVehiculosPU").createEntityManager();
         clienteQuery = java.beans.Beans.isDesignTime() ? null : AlquilerVehiculosPUEntityManager.createQuery("SELECT c FROM Cliente c");
         clienteList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : clienteQuery.getResultList();
-        pMenuTablaCLientes = new javax.swing.JPopupMenu();
+        pMenuTabla = new javax.swing.JPopupMenu();
         pMenuItemNuevaReserva = new javax.swing.JMenuItem();
         pnlContenedor = new javax.swing.JPanel();
         pnlClientes = new javax.swing.JPanel();
@@ -206,7 +222,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 pMenuItemNuevaReservaActionPerformed(evt);
             }
         });
-        pMenuTablaCLientes.add(pMenuItemNuevaReserva);
+        pMenuTabla.add(pMenuItemNuevaReserva);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1040,7 +1056,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemVerVehiculos;
     private javax.swing.JMenu menuVer;
     private javax.swing.JMenuItem pMenuItemNuevaReserva;
-    private javax.swing.JPopupMenu pMenuTablaCLientes;
+    private javax.swing.JPopupMenu pMenuTabla;
     private javax.swing.JPanel pnlCabeceraClientes;
     private javax.swing.JPanel pnlCabeceraReservas;
     private javax.swing.JPanel pnlCabeceraVehiculos;

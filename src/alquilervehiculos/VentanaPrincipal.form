@@ -25,7 +25,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;model.Cliente&gt;"/>
       </AuxValues>
     </Component>
-    <Container class="javax.swing.JPopupMenu" name="pMenuTablaCLientes">
+    <Container class="javax.swing.JPopupMenu" name="pMenuTabla">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
