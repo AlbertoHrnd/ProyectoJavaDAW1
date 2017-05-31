@@ -46,9 +46,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         listaClientesVistaClientes = new ArrayList<>();
         listaReservasVistaClientes = new DefaultListModel<>();
-        
+
         listaReservasVistaReserva = new ArrayList<>();
-        
+
         listaVehiculosVistaVehiculos = new ArrayList<>();
         listaReservasVistaVehiculos = new DefaultListModel<>();
 
@@ -56,9 +56,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblClientes.setComponentPopupMenu(pMenuTabla);
 
         tblReservas.setAutoCreateRowSorter(true);
-        
+
         tblVehiculos.setAutoCreateRowSorter(true);
-        tblVehiculos.setComponentPopupMenu(pMenuTabla);        
+        tblVehiculos.setComponentPopupMenu(pMenuTabla);
 
         // Listener para seleccionar la fila de la tabla cuando botón derecho
         tblClientes.addMouseListener(new TableMouseListener(tblClientes));
@@ -125,7 +125,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         TypedQuery<Vehiculo> queryVehiculos = em.createNamedQuery("Vehiculo.findAll", Vehiculo.class);
         List<Vehiculo> vehiculos = queryVehiculos.getResultList();
-        
+
         // Ordenamos los vehículos por marca
         vehiculos.sort(new Comparator<Vehiculo>() {
             @Override
@@ -137,7 +137,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         for (Vehiculo v : vehiculos) {
             listaVehiculosVistaVehiculos.add(v);
         }
-        
+
         tblVehiculos.setModel(new TableModelVehiculos(listaVehiculosVistaVehiculos));
     }
 
@@ -717,6 +717,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuArchivo.add(menuItemNuevaReserva);
 
         menuItemNuevoVehiculo.setText("Nuevo vehículo");
+        menuItemNuevoVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemNuevoVehiculoActionPerformed(evt);
+            }
+        });
         menuArchivo.add(menuItemNuevoVehiculo);
         menuArchivo.add(jSeparator1);
 
@@ -874,7 +879,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 diaCrearReserva.setVisible(true);
             }
         }
-        
+
     }//GEN-LAST:event_pMenuItemNuevaReservaActionPerformed
 
     private void tblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMousePressed
@@ -941,7 +946,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuItemNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevaReservaActionPerformed
         nuevaReserva();
     }//GEN-LAST:event_menuItemNuevaReservaActionPerformed
-
+    
     private void tbtnVerPendientesDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesDevolucionActionPerformed
         if (tbtnVerPendientesDevolucion.isSelected()) {
 
@@ -993,7 +998,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tbtnVerPendientesEntregaActionPerformed
 
     private void btnNuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoVehiculoActionPerformed
-        // TODO add your handling code here:
+        nuevoVehiculo();
     }//GEN-LAST:event_btnNuevoVehiculoActionPerformed
 
     private void btnBuscarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarVehiculoActionPerformed
@@ -1009,8 +1014,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarVehiculoActionPerformed
 
     private void tblVehiculosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVehiculosMousePressed
-        // TODO add your handling code here:
+        if (tblVehiculos.getSelectedRow() != -1) {
+            int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
+            Vehiculo v = listaVehiculosVistaVehiculos.get(i);
+
+            listaReservasVistaVehiculos.clear();
+            List<Reserva> listaReservasVehiculo = v.getReservaList();
+
+            for (Reserva r : listaReservasVehiculo) {
+                listaReservasVistaVehiculos.addElement(r);
+            }
+
+            lstReservasVistaVehiculos.setModel(listaReservasVistaVehiculos);
+        }
     }//GEN-LAST:event_tblVehiculosMousePressed
+
+    private void menuItemNuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevoVehiculoActionPerformed
+        nuevoVehiculo();
+    }//GEN-LAST:event_menuItemNuevoVehiculoActionPerformed
 
     private void nuevoCliente() {
         DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
@@ -1022,6 +1043,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true);
         diaCrearReserva.setLocationRelativeTo(this);
         diaCrearReserva.setVisible(true);
+    }
+
+    private void nuevoVehiculo() {
+        DiaCrearModificarVehiculo diaCrearVehiculo = new DiaCrearModificarVehiculo(this, true);
+        diaCrearVehiculo.setLocationRelativeTo(this);
+        diaCrearVehiculo.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

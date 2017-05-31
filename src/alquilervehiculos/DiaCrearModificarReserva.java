@@ -25,7 +25,7 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
     private Agencia agencia;
 
     /**
-     * Creates new form diaCrearReserva
+     * Creates new form diaCrearModificarReserva
      */
     public DiaCrearModificarReserva(Frame parent, boolean modal) {
         super(parent, modal);
@@ -42,7 +42,10 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             cmbVehiculos.addItem(v);
         }
     }
-
+    
+    /**
+     * Creates new form diaCrearModificarReserva pasando un cliente seleccionado
+     */
     public DiaCrearModificarReserva(Frame parent, boolean modal, Cliente cliente) {
         super(parent, modal);
         initComponents();
@@ -56,7 +59,10 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             cmbVehiculos.addItem(v);
         }
     }
-
+    
+    /**
+     * Creates new form diaCrearModificarReserva pasando un vehículo seleccionado
+     */
     public DiaCrearModificarReserva(Frame parent, boolean modal, Vehiculo vehiculo) {
         super(parent, modal);
         initComponents();
@@ -71,6 +77,9 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * Creates new form diaCrearModificarReserva pasando una reserva seleccionada a modificar
+     */
     public DiaCrearModificarReserva(Frame parent, boolean modal, Reserva reserva) {
         super(parent, modal);
         initComponents();

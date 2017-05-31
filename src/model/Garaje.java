@@ -105,7 +105,7 @@ public class Garaje implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Garaje[ id=" + id + " ]";
+        return id + " - Capacidad: " + capacidad;
     }
     
 }
