@@ -141,7 +141,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pMenuItemNuevaReserva = new javax.swing.JMenuItem();
         pnlContenedor = new javax.swing.JPanel();
         pnlClientes = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTituloPanelClientes = new javax.swing.JLabel();
         pnlPrincipalClientes = new javax.swing.JPanel();
         pnlCabeceraClientes = new javax.swing.JPanel();
         btnNuevoCliente = new javax.swing.JButton();
@@ -157,9 +157,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblClientes = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstReservasVistaClientes = new javax.swing.JList();
-        lblTituloListaReservas = new javax.swing.JLabel();
+        lblTituloListaReservasVistaClientes = new javax.swing.JLabel();
         pnlVehiculos = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTituloPanelVehiculos = new javax.swing.JLabel();
+        pnlPrincipalVehiculos = new javax.swing.JPanel();
+        pnlCabeceraVehiculos = new javax.swing.JPanel();
+        btnNuevoVehiculo = new javax.swing.JButton();
+        txtBuscarVehiculoMarca = new javax.swing.JTextField();
+        txtBuscarVehiculoModelo = new javax.swing.JTextField();
+        btnBuscarVehiculo = new javax.swing.JButton();
+        lblBuscarVehiculoMarca = new javax.swing.JLabel();
+        lblBuscarVehiculoModelo = new javax.swing.JLabel();
+        btnModificarVehiculo = new javax.swing.JButton();
+        btnEliminarVehiculo = new javax.swing.JButton();
+        pnlCuerpoVehiculos = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblVehiculos = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        lstReservasVistaVehiculos = new javax.swing.JList();
+        lblTituloListaReservasVistaVehiculos = new javax.swing.JLabel();
         pnlReservas = new javax.swing.JPanel();
         lblTituloPnlReservas = new javax.swing.JLabel();
         pnlPrincipaReservas = new javax.swing.JPanel();
@@ -194,8 +210,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("CLIENTES");
+        lblTituloPanelClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPanelClientes.setText("CLIENTES");
 
         btnNuevoCliente.setText("Nuevo Cliente");
         btnNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -287,8 +303,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(lstReservasVistaClientes);
 
-        lblTituloListaReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloListaReservas.setText("RESERVAS");
+        lblTituloListaReservasVistaClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloListaReservasVistaClientes.setText("RESERVAS");
 
         javax.swing.GroupLayout pnlCuerpoClientesLayout = new javax.swing.GroupLayout(pnlCuerpoClientes);
         pnlCuerpoClientes.setLayout(pnlCuerpoClientesLayout);
@@ -299,7 +315,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlCuerpoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTituloListaReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTituloListaReservasVistaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -310,7 +326,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlCuerpoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                     .addGroup(pnlCuerpoClientesLayout.createSequentialGroup()
-                        .addComponent(lblTituloListaReservas)
+                        .addComponent(lblTituloListaReservasVistaClientes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2)))
                 .addContainerGap())
@@ -339,37 +355,175 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlPrincipalClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTituloPanelClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlClientesLayout.setVerticalGroup(
             pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblTituloPanelClientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlPrincipalClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("VEHÍCULOS");
+        lblTituloPanelVehiculos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPanelVehiculos.setText("VEHÍCULOS");
+
+        btnNuevoVehiculo.setText("Nuevo Vehículo");
+        btnNuevoVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoVehiculoActionPerformed(evt);
+            }
+        });
+
+        btnBuscarVehiculo.setText("Buscar Vehículo");
+        btnBuscarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarVehiculoActionPerformed(evt);
+            }
+        });
+
+        lblBuscarVehiculoMarca.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblBuscarVehiculoMarca.setText("Marca");
+
+        lblBuscarVehiculoModelo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblBuscarVehiculoModelo.setText("Modelo");
+
+        btnModificarVehiculo.setText("Modificar Vehículo");
+        btnModificarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarVehiculoActionPerformed(evt);
+            }
+        });
+
+        btnEliminarVehiculo.setBackground(new java.awt.Color(240, 0, 0));
+        btnEliminarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarVehiculo.setText("Eliminar Vehículo");
+        btnEliminarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarVehiculoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlCabeceraVehiculosLayout = new javax.swing.GroupLayout(pnlCabeceraVehiculos);
+        pnlCabeceraVehiculos.setLayout(pnlCabeceraVehiculosLayout);
+        pnlCabeceraVehiculosLayout.setHorizontalGroup(
+            pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCabeceraVehiculosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCabeceraVehiculosLayout.createSequentialGroup()
+                        .addGroup(pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnNuevoVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnModificarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblBuscarVehiculoMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBuscarVehiculoModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)))
+                    .addGroup(pnlCabeceraVehiculosLayout.createSequentialGroup()
+                        .addComponent(btnEliminarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtBuscarVehiculoMarca)
+                    .addComponent(txtBuscarVehiculoModelo)
+                    .addComponent(btnBuscarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlCabeceraVehiculosLayout.setVerticalGroup(
+            pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCabeceraVehiculosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscarVehiculoMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBuscarVehiculoMarca)
+                    .addComponent(btnNuevoVehiculo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscarVehiculoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBuscarVehiculoModelo)
+                    .addComponent(btnModificarVehiculo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(pnlCabeceraVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscarVehiculo)
+                    .addComponent(btnEliminarVehiculo))
+                .addContainerGap())
+        );
+
+        tblVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblVehiculosMousePressed(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tblVehiculos);
+
+        jScrollPane8.setViewportView(lstReservasVistaVehiculos);
+
+        lblTituloListaReservasVistaVehiculos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloListaReservasVistaVehiculos.setText("RESERVAS");
+
+        javax.swing.GroupLayout pnlCuerpoVehiculosLayout = new javax.swing.GroupLayout(pnlCuerpoVehiculos);
+        pnlCuerpoVehiculos.setLayout(pnlCuerpoVehiculosLayout);
+        pnlCuerpoVehiculosLayout.setHorizontalGroup(
+            pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTituloListaReservasVistaVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlCuerpoVehiculosLayout.setVerticalGroup(
+            pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
+                        .addComponent(lblTituloListaReservasVistaVehiculos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane8)))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout pnlPrincipalVehiculosLayout = new javax.swing.GroupLayout(pnlPrincipalVehiculos);
+        pnlPrincipalVehiculos.setLayout(pnlPrincipalVehiculosLayout);
+        pnlPrincipalVehiculosLayout.setHorizontalGroup(
+            pnlPrincipalVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlCabeceraVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlCuerpoVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlPrincipalVehiculosLayout.setVerticalGroup(
+            pnlPrincipalVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPrincipalVehiculosLayout.createSequentialGroup()
+                .addComponent(pnlCabeceraVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlCuerpoVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnlVehiculosLayout = new javax.swing.GroupLayout(pnlVehiculos);
         pnlVehiculos.setLayout(pnlVehiculosLayout);
         pnlVehiculosLayout.setHorizontalGroup(
             pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlVehiculosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVehiculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                .addGroup(pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlPrincipalVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTituloPanelVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlVehiculosLayout.setVerticalGroup(
             pnlVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVehiculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(597, Short.MAX_VALUE))
+                .addComponent(lblTituloPanelVehiculos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlPrincipalVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         lblTituloPnlReservas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -811,6 +965,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbtnVerPendientesEntregaActionPerformed
 
+    private void btnNuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoVehiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNuevoVehiculoActionPerformed
+
+    private void btnBuscarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarVehiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarVehiculoActionPerformed
+
+    private void btnModificarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarVehiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarVehiculoActionPerformed
+
+    private void btnEliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVehiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarVehiculoActionPerformed
+
+    private void tblVehiculosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVehiculosMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblVehiculosMousePressed
+
     private void nuevoCliente() {
         DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
         diaCrearCliente.setLocationRelativeTo(this);
@@ -826,26 +1000,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager AlquilerVehiculosPUEntityManager;
     private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnBuscarVehiculo;
     private javax.swing.JButton btnEliminarCliente;
     private javax.swing.JButton btnEliminarReserva;
+    private javax.swing.JButton btnEliminarVehiculo;
     private javax.swing.JButton btnModificarCliente;
     private javax.swing.JButton btnModificarReserva;
+    private javax.swing.JButton btnModificarVehiculo;
     private javax.swing.JButton btnNuevaReserva;
     private javax.swing.JButton btnNuevoCliente;
+    private javax.swing.JButton btnNuevoVehiculo;
     private java.util.List<model.Cliente> clienteList;
     private javax.persistence.Query clienteQuery;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblBuscarClienteApellidos;
     private javax.swing.JLabel lblBuscarClienteNombre;
-    private javax.swing.JLabel lblTituloListaReservas;
+    private javax.swing.JLabel lblBuscarVehiculoMarca;
+    private javax.swing.JLabel lblBuscarVehiculoModelo;
+    private javax.swing.JLabel lblTituloListaReservasVistaClientes;
+    private javax.swing.JLabel lblTituloListaReservasVistaVehiculos;
+    private javax.swing.JLabel lblTituloPanelClientes;
+    private javax.swing.JLabel lblTituloPanelVehiculos;
     private javax.swing.JLabel lblTituloPnlReservas;
     private javax.swing.JList lstReservasVistaClientes;
+    private javax.swing.JList lstReservasVistaVehiculos;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenuItem menuItemCerrar;
     private javax.swing.JMenuItem menuItemNuevaReserva;
@@ -859,19 +1043,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu pMenuTablaCLientes;
     private javax.swing.JPanel pnlCabeceraClientes;
     private javax.swing.JPanel pnlCabeceraReservas;
+    private javax.swing.JPanel pnlCabeceraVehiculos;
     private javax.swing.JPanel pnlClientes;
     private javax.swing.JPanel pnlContenedor;
     private javax.swing.JPanel pnlCuerpoClientes;
     private javax.swing.JPanel pnlCuerpoClientes1;
+    private javax.swing.JPanel pnlCuerpoVehiculos;
     private javax.swing.JPanel pnlPrincipaReservas;
     private javax.swing.JPanel pnlPrincipalClientes;
+    private javax.swing.JPanel pnlPrincipalVehiculos;
     private javax.swing.JPanel pnlReservas;
     private javax.swing.JPanel pnlVehiculos;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblReservas;
+    private javax.swing.JTable tblVehiculos;
     private javax.swing.JToggleButton tbtnVerPendientesDevolucion;
     private javax.swing.JToggleButton tbtnVerPendientesEntrega;
     private javax.swing.JTextField txtBuscarClienteApellidos;
     private javax.swing.JTextField txtBuscarClienteNombre;
+    private javax.swing.JTextField txtBuscarVehiculoMarca;
+    private javax.swing.JTextField txtBuscarVehiculoModelo;
     // End of variables declaration//GEN-END:variables
 }
