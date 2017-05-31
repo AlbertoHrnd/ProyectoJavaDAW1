@@ -57,6 +57,20 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         }
     }
 
+    public DiaCrearModificarReserva(Frame parent, boolean modal, Vehiculo vehiculo) {
+        super(parent, modal);
+        initComponents();
+
+        padre = (VentanaPrincipal) parent;
+        reserva = new Reserva();
+
+        cmbVehiculos.addItem(vehiculo);
+
+        for (Cliente c : padre.listaClientesVistaClientes) {
+            cmbClientes.addItem(c);
+        }
+    }
+
     public DiaCrearModificarReserva(Frame parent, boolean modal, Reserva reserva) {
         super(parent, modal);
         initComponents();

@@ -855,15 +855,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     private void pMenuItemNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pMenuItemNuevaReservaActionPerformed
-        if (tblClientes.getSelectedRow() != -1) {
-            int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
-            Cliente c = listaClientesVistaClientes.get(i);
+        if (pnlClientes.isVisible()) {
+            if (tblClientes.getSelectedRow() != -1) {
+                int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
+                Cliente c = listaClientesVistaClientes.get(i);
 
-            DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true, c);
-//            DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true);
-            diaCrearReserva.setLocationRelativeTo(this);
-            diaCrearReserva.setVisible(true);
+                DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true, c);
+                diaCrearReserva.setLocationRelativeTo(this);
+                diaCrearReserva.setVisible(true);
+            }
+        } else if (pnlVehiculos.isVisible()) {
+            if (tblVehiculos.getSelectedRow() != -1) {
+                int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
+                Vehiculo v = listaVehiculosVistaVehiculos.get(i);
+
+                DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true, v);
+                diaCrearReserva.setLocationRelativeTo(this);
+                diaCrearReserva.setVisible(true);
+            }
         }
+        
     }//GEN-LAST:event_pMenuItemNuevaReservaActionPerformed
 
     private void tblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMousePressed
