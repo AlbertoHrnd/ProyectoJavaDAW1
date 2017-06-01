@@ -442,6 +442,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Guardar XML"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarClientesXmlActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnGuardarClientesExcel">
                       <Properties>
@@ -718,6 +721,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Guardar XML"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarVehiculosXmlActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnGuardarVehiculosExcel">
                       <Properties>
@@ -940,6 +946,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Guardar XML"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarReservasXmlActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnGuardarReservasExcel">
                       <Properties>

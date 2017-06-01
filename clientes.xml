@@ -1,0 +1,51 @@
+<listaClientes>
+<cliente>
+<Nombre>Patricia</Nombre>
+<Apellidos>Bernardos Gutierrez</Apellidos>
+<DNI>45656734X</DNI>
+<Teléfono>698375183</Teléfono>
+<Dirección>C/ Criptonita, 23</Dirección>
+</cliente>
+<cliente>
+<Nombre>Alfonso</Nombre>
+<Apellidos>García Corral</Apellidos>
+<DNI>98765476X</DNI>
+<Teléfono>612354356</Teléfono>
+<Dirección>Av. Criptana, 56</Dirección>
+</cliente>
+<cliente>
+<Nombre>Felipe</Nombre>
+<Apellidos>Gutierrez Valdés</Apellidos>
+<DNI>98756378E</DNI>
+<Teléfono>678234765</Teléfono>
+<Dirección>C/ Led Zeppelin, 4</Dirección>
+</cliente>
+<cliente>
+<Nombre>Alberto</Nombre>
+<Apellidos>Hernández Mora</Apellidos>
+<DNI>12312312X</DNI>
+<Teléfono>567567567</Teléfono>
+<Dirección>Av.Cenutrio, 2</Dirección>
+</cliente>
+<cliente>
+<Nombre>Francisco</Nombre>
+<Apellidos>López Alonso</Apellidos>
+<DNI>23423423X</DNI>
+<Teléfono>654765876</Teléfono>
+<Dirección>C/ Almaraz, 23</Dirección>
+</cliente>
+<cliente>
+<Nombre>Beatriz</Nombre>
+<Apellidos>Muela Rivas</Apellidos>
+<DNI>12312389X</DNI>
+<Teléfono>612323445</Teléfono>
+<Dirección>C/ Aguas, 11</Dirección>
+</cliente>
+<cliente>
+<Nombre>Fernando</Nombre>
+<Apellidos>Ramos-Flores González</Apellidos>
+<DNI>34545656X</DNI>
+<Teléfono>689234543</Teléfono>
+<Dirección>C/ Huertos, 34</Dirección>
+</cliente>
+</listaClientes>

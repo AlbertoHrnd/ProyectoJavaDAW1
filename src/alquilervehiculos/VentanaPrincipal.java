@@ -5,6 +5,9 @@
  */
 package alquilervehiculos;
 
+import almacenamiento.GuardarClientes;
+import almacenamiento.GuardarReservas;
+import almacenamiento.GuardarVehiculos;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -329,6 +332,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblTituloListaReservasVistaClientes.setText("RESERVAS");
 
         btnGuardarClientesXml.setText("Guardar XML");
+        btnGuardarClientesXml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarClientesXmlActionPerformed(evt);
+            }
+        });
 
         btnGuardarClientesExcel.setText("Guardar Excel");
 
@@ -503,6 +511,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblTituloListaReservasVistaVehiculos.setText("RESERVAS");
 
         btnGuardarVehiculosXml.setText("Guardar XML");
+        btnGuardarVehiculosXml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarVehiculosXmlActionPerformed(evt);
+            }
+        });
 
         btnGuardarVehiculosExcel.setText("Guardar Excel");
 
@@ -659,6 +672,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tblReservas);
 
         btnGuardarReservasXml.setText("Guardar XML");
+        btnGuardarReservasXml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarReservasXmlActionPerformed(evt);
+            }
+        });
 
         btnGuardarReservasExcel.setText("Guardar Excel");
 
@@ -982,7 +1000,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuItemNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevaReservaActionPerformed
         nuevaReserva();
     }//GEN-LAST:event_menuItemNuevaReservaActionPerformed
-    
+
     private void tbtnVerPendientesDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesDevolucionActionPerformed
         if (tbtnVerPendientesDevolucion.isSelected()) {
 
@@ -1084,6 +1102,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             lstReservasVistaClientes.setModel(listaReservasVistaClientes);
         }
     }//GEN-LAST:event_tblClientesMousePressed
+
+    private void btnGuardarClientesXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClientesXmlActionPerformed
+        GuardarClientes gc = new GuardarClientes();
+        gc.guardarXml(tblClientes);
+    }//GEN-LAST:event_btnGuardarClientesXmlActionPerformed
+
+    private void btnGuardarReservasXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReservasXmlActionPerformed
+        GuardarReservas gr = new GuardarReservas();
+        gr.guardarXml(tblReservas);
+    }//GEN-LAST:event_btnGuardarReservasXmlActionPerformed
+
+    private void btnGuardarVehiculosXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVehiculosXmlActionPerformed
+        GuardarVehiculos gv = new GuardarVehiculos();
+        gv.guardarXml(tblVehiculos);// TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarVehiculosXmlActionPerformed
 
     private void nuevoCliente() {
         DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);

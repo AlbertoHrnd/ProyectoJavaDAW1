@@ -1,0 +1,192 @@
+<listaReservas>
+<reserva>
+<Cliente>Francisco López Alonso</Cliente>
+<FechaInicio>11-junio-2017</FechaInicio>
+<FechaFin>21-junio-2017</FechaFin>
+<Entregado>false</Entregado>
+<Devuelto>false</Devuelto>
+<Vehículo>Ford Mondeo 1.9 TDi</Vehículo>
+<Precio-día>30.00</Precio-día>
+<Preciototal>300.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Francisco López Alonso</Cliente>
+<FechaInicio>02-junio-2017</FechaInicio>
+<FechaFin>08-junio-2017</FechaFin>
+<Entregado>false</Entregado>
+<Devuelto>false</Devuelto>
+<Vehículo>Renault Clio 1.2 75CV</Vehículo>
+<Precio-día>20.00</Precio-día>
+<Preciototal>120.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Alberto Hernández Mora</Cliente>
+<FechaInicio>30-mayo-2017</FechaInicio>
+<FechaFin>01-junio-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>false</Devuelto>
+<Vehículo>Opel Astra 2.0 TDi</Vehículo>
+<Precio-día>25.00</Precio-día>
+<Preciototal>50.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Alfonso García Corral</Cliente>
+<FechaInicio>16-mayo-2017</FechaInicio>
+<FechaFin>23-mayo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Opel Astra 2.0 TDi</Vehículo>
+<Precio-día>25.00</Precio-día>
+<Preciototal>175.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Patricia Bernardos Gutierrez</Cliente>
+<FechaInicio>13-mayo-2017</FechaInicio>
+<FechaFin>20-mayo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Seat Toledo 1.6 GTI</Vehículo>
+<Precio-día>30.00</Precio-día>
+<Preciototal>210.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Beatriz Muela Rivas</Cliente>
+<FechaInicio>10-mayo-2017</FechaInicio>
+<FechaFin>12-mayo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Seat Toledo 1.6 GTI</Vehículo>
+<Precio-día>30.00</Precio-día>
+<Preciototal>60.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Fernando Ramos-Flores González</Cliente>
+<FechaInicio>08-mayo-2017</FechaInicio>
+<FechaFin>15-mayo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Opel Astra 2.0 TDi</Vehículo>
+<Precio-día>25.00</Precio-día>
+<Preciototal>175.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Francisco López Alonso</Cliente>
+<FechaInicio>08-mayo-2017</FechaInicio>
+<FechaFin>14-mayo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Ford Mondeo 1.9 TDi</Vehículo>
+<Precio-día>35.00</Precio-día>
+<Preciototal>210.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Alberto Hernández Mora</Cliente>
+<FechaInicio>05-mayo-2017</FechaInicio>
+<FechaFin>07-mayo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Opel Astra 2.0 TDi</Vehículo>
+<Precio-día>25.00</Precio-día>
+<Preciototal>50.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Patricia Bernardos Gutierrez</Cliente>
+<FechaInicio>02-mayo-2017</FechaInicio>
+<FechaFin>01-junio-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Renault Clio 1.2 75CV</Vehículo>
+<Precio-día>20.00</Precio-día>
+<Preciototal>600.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Beatriz Muela Rivas</Cliente>
+<FechaInicio>20-abril-2017</FechaInicio>
+<FechaFin>22-abril-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Ford Mondeo 1.9 TDi</Vehículo>
+<Precio-día>35.00</Precio-día>
+<Preciototal>70.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Francisco López Alonso</Cliente>
+<FechaInicio>13-abril-2017</FechaInicio>
+<FechaFin>16-abril-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Opel Astra 2.0 TDi</Vehículo>
+<Precio-día>25.00</Precio-día>
+<Preciototal>75.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Francisco López Alonso</Cliente>
+<FechaInicio>05-abril-2017</FechaInicio>
+<FechaFin>11-abril-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Ford Mondeo 1.9 TDi</Vehículo>
+<Precio-día>30.00</Precio-día>
+<Preciototal>180.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Patricia Bernardos Gutierrez</Cliente>
+<FechaInicio>27-marzo-2017</FechaInicio>
+<FechaFin>28-marzo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Opel Astra 2.0 TDi</Vehículo>
+<Precio-día>25.00</Precio-día>
+<Preciototal>25.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Alberto Hernández Mora</Cliente>
+<FechaInicio>23-marzo-2017</FechaInicio>
+<FechaFin>29-marzo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Seat Toledo 1.6 GTI</Vehículo>
+<Precio-día>30.00</Precio-día>
+<Preciototal>150.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Beatriz Muela Rivas</Cliente>
+<FechaInicio>08-marzo-2017</FechaInicio>
+<FechaFin>15-marzo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Ford Mondeo 1.9 TDi</Vehículo>
+<Precio-día>35.00</Precio-día>
+<Preciototal>245.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Alfonso García Corral</Cliente>
+<FechaInicio>01-marzo-2017</FechaInicio>
+<FechaFin>03-marzo-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Ford Mondeo 1.9 TDi</Vehículo>
+<Precio-día>35.00</Precio-día>
+<Preciototal>70.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Fernando Ramos-Flores González</Cliente>
+<FechaInicio>07-febrero-2017</FechaInicio>
+<FechaFin>08-febrero-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Opel Astra 2.0 TDi</Vehículo>
+<Precio-día>25.00</Precio-día>
+<Preciototal>25.00</Preciototal>
+</reserva>
+<reserva>
+<Cliente>Felipe Gutierrez Valdés</Cliente>
+<FechaInicio>04-febrero-2017</FechaInicio>
+<FechaFin>07-febrero-2017</FechaFin>
+<Entregado>true</Entregado>
+<Devuelto>true</Devuelto>
+<Vehículo>Ford Mondeo 1.9 TDi</Vehículo>
+<Precio-día>35.00</Precio-día>
+<Preciototal>105.00</Preciototal>
+</reserva>
+</listaReservas>

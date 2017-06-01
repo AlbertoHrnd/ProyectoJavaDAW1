@@ -5,22 +5,79 @@
  */
 package almacenamiento;
 
-import java.util.List;
+import java.io.File;
+import javax.swing.JTable;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import model.Cliente;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  *
  * @author Alberto
  */
-public class GuardarClientes implements IDepositable{
+public class GuardarClientes implements IDepositable {
 
     @Override
-    public void guardarXml(List lista) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void guardarXml(JTable tabla) {
+        File archivo = new File("clientes.xml");
+        Document doc = null;
+
+        // Creamos el doc
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            doc = db.newDocument();
+        } catch (ParserConfigurationException ex) {
+            System.out.println(ex);
+        }
+
+        Element root = doc.createElement("listaClientes");
+
+        doc.appendChild(root);
+
+        // Recorremos la tabla
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+
+            Element cliente = doc.createElement("cliente");
+            root.appendChild(cliente);
+            
+            for (int j = 0; j < tabla.getColumnCount(); j++) {
+                Object o = tabla.getValueAt(i, j);
+
+                Element nombre = doc.createElement(tabla.getColumnName(j));
+                Text nombreTxt = doc.createTextNode(o.toString());
+                cliente.appendChild(nombre);
+                nombre.appendChild(nombreTxt);
+            }
+        }
+
+        try {
+            TransformerFactory tf = TransformerFactory.newInstance();
+            tf.setAttribute("indent-number", 4);
+            Transformer trans = tf.newTransformer();
+            trans.setOutputProperty(OutputKeys.INDENT, "yes");
+            trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+
+            StreamResult sr = new StreamResult(archivo);
+            DOMSource domSource = new DOMSource(doc);
+            trans.transform(domSource, sr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
-    public void guardarExcel(List lista) {
+    public void guardarExcel(JTable tabla) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

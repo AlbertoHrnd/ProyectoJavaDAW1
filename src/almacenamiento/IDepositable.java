@@ -5,13 +5,13 @@
  */
 package almacenamiento;
 
-import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
  * @author Alberto
  */
 public interface IDepositable {
-     public void guardarXml(List lista);
-     public void guardarExcel(List lista);
+     public void guardarXml(JTable tabla);
+     public void guardarExcel(JTable tabla);
 }
