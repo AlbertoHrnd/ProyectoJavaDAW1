@@ -15,7 +15,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import model.Cliente;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -27,8 +26,8 @@ import org.w3c.dom.Text;
 public class GuardarClientes implements IDepositable {
 
     @Override
-    public void guardarXml(JTable tabla) {
-        File archivo = new File("clientes.xml");
+    public void guardarXml(JTable tabla, File archivo) {
+
         Document doc = null;
 
         // Creamos el doc
@@ -49,7 +48,7 @@ public class GuardarClientes implements IDepositable {
 
             Element cliente = doc.createElement("cliente");
             root.appendChild(cliente);
-            
+
             for (int j = 0; j < tabla.getColumnCount(); j++) {
                 Object o = tabla.getValueAt(i, j);
 
@@ -62,10 +61,10 @@ public class GuardarClientes implements IDepositable {
 
         try {
             TransformerFactory tf = TransformerFactory.newInstance();
-            tf.setAttribute("indent-number", 4);
             Transformer trans = tf.newTransformer();
             trans.setOutputProperty(OutputKeys.INDENT, "yes");
             trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
             StreamResult sr = new StreamResult(archivo);
             DOMSource domSource = new DOMSource(doc);

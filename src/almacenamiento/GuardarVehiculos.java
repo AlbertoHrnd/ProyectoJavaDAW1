@@ -26,8 +26,8 @@ import org.w3c.dom.Text;
 public class GuardarVehiculos implements IDepositable {
 
     @Override
-    public void guardarXml(JTable tabla) {
-        File archivo = new File("vehiculos.xml");
+    public void guardarXml(JTable tabla, File archivo) {
+
         Document doc = null;
 
         // Creamos el doc
@@ -60,11 +60,11 @@ public class GuardarVehiculos implements IDepositable {
         }
 
         try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            tf.setAttribute("indent-number", 4);
+            TransformerFactory tf = TransformerFactory.newInstance();            
             Transformer trans = tf.newTransformer();
             trans.setOutputProperty(OutputKeys.INDENT, "yes");
             trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
             StreamResult sr = new StreamResult(archivo);
             DOMSource domSource = new DOMSource(doc);

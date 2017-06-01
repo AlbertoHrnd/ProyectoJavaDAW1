@@ -8,6 +8,7 @@ package alquilervehiculos;
 import almacenamiento.GuardarClientes;
 import almacenamiento.GuardarReservas;
 import almacenamiento.GuardarVehiculos;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -16,8 +17,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Cliente;
 import model.Reserva;
 import model.Vehiculo;
@@ -1104,19 +1106,47 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tblClientesMousePressed
 
     private void btnGuardarClientesXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClientesXmlActionPerformed
-        GuardarClientes gc = new GuardarClientes();
-        gc.guardarXml(tblClientes);
+        File archivo = seleccionarArchivoXml();
+        if (archivo != null) {
+            GuardarClientes gc = new GuardarClientes();
+            gc.guardarXml(tblClientes, archivo);
+        }
     }//GEN-LAST:event_btnGuardarClientesXmlActionPerformed
 
     private void btnGuardarReservasXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReservasXmlActionPerformed
-        GuardarReservas gr = new GuardarReservas();
-        gr.guardarXml(tblReservas);
+        File archivo = seleccionarArchivoXml();
+        if (archivo != null) {
+            GuardarReservas gr = new GuardarReservas();
+            gr.guardarXml(tblReservas, archivo);
+        }
     }//GEN-LAST:event_btnGuardarReservasXmlActionPerformed
 
     private void btnGuardarVehiculosXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVehiculosXmlActionPerformed
-        GuardarVehiculos gv = new GuardarVehiculos();
-        gv.guardarXml(tblVehiculos);// TODO add your handling code here:
+        File archivo = seleccionarArchivoXml();
+        if (archivo != null) {
+            GuardarVehiculos gv = new GuardarVehiculos();
+            gv.guardarXml(tblVehiculos, archivo);
+        }
     }//GEN-LAST:event_btnGuardarVehiculosXmlActionPerformed
+
+    private File seleccionarArchivoXml() {
+        File archivo = null;
+
+        JFileChooser fc = new JFileChooser(new File("."));
+
+        fc.setFileFilter(new FileNameExtensionFilter("xml", "xml"));
+        int returnVal = fc.showSaveDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            archivo = fc.getSelectedFile();
+
+            // Forzamos la extensión a xml
+            if (!archivo.toString().endsWith(".xml")) {
+                archivo = new File(archivo.toString() + ".xml");
+            }
+        }
+        return archivo;
+    }
 
     private void nuevoCliente() {
         DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
