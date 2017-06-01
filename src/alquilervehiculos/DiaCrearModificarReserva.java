@@ -180,9 +180,15 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
         chkDevuelto.setText("Devuelto");
 
-        cmbVehiculos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                cmbVehiculosFocusGained(evt);
+        dtpFechaInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpFechaInicioPropertyChange(evt);
+            }
+        });
+
+        dtpFechaFin.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpFechaFinPropertyChange(evt);
             }
         });
 
@@ -341,7 +347,15 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void cmbVehiculosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbVehiculosFocusGained
+    private void dtpFechaInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpFechaInicioPropertyChange
+        compruebaFechas();
+    }//GEN-LAST:event_dtpFechaInicioPropertyChange
+
+    private void dtpFechaFinPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpFechaFinPropertyChange
+        compruebaFechas();
+    }//GEN-LAST:event_dtpFechaFinPropertyChange
+
+    private void compruebaFechas() {
         Date ini = dtpFechaInicio.getDate();
         Date fin = dtpFechaFin.getDate();
 
@@ -350,11 +364,12 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
                 compruebaDisponibilidad(dtpFechaInicio.getDate(), dtpFechaFin.getDate());
             } else {
                 lblError.setText("<html>La fecha de inicio debe ser anterior a<br>la fecha de fin.</html>");
+                cmbVehiculos.removeAllItems();
             }
         } else {
             lblError.setText("<html>Debes seleccionar un rango de fechas<br>para comprobar la disponibilidad.</html>");
         }
-    }//GEN-LAST:event_cmbVehiculosFocusGained
+    }
 
     private void compruebaDisponibilidad(Date fechaInicio, Date fechaFin) {
 
@@ -371,14 +386,15 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
         cmbVehiculos.removeAllItems();
 
-        if (listaVehiculos == null) {
+        if (listaVehiculos.isEmpty()) {
             cmbVehiculos.setEnabled(false);
+            lblError.setText("No hay vehículos disponibles en ese rango de fechas.");
         } else {
             for (Vehiculo v : listaVehiculos) {
                 cmbVehiculos.addItem(v);
             }
             cmbVehiculos.setEnabled(true);
-            cmbVehiculos.showPopup();
+            lblError.setText("");            
         }
     }
 
