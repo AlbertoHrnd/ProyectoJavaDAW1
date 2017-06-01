@@ -174,6 +174,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         lstReservasVistaClientes = new javax.swing.JList();
         lblTituloListaReservasVistaClientes = new javax.swing.JLabel();
+        btnGuardarClientesXml = new javax.swing.JButton();
+        btnGuardarClientesExcel = new javax.swing.JButton();
         pnlVehiculos = new javax.swing.JPanel();
         lblTituloPanelVehiculos = new javax.swing.JLabel();
         pnlPrincipalVehiculos = new javax.swing.JPanel();
@@ -192,6 +194,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         lstReservasVistaVehiculos = new javax.swing.JList();
         lblTituloListaReservasVistaVehiculos = new javax.swing.JLabel();
+        btnGuardarVehiculosXml = new javax.swing.JButton();
+        btnGuardarVehiculosExcel = new javax.swing.JButton();
         pnlReservas = new javax.swing.JPanel();
         lblTituloPnlReservas = new javax.swing.JLabel();
         pnlPrincipaReservas = new javax.swing.JPanel();
@@ -204,6 +208,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pnlCuerpoClientes1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblReservas = new javax.swing.JTable();
+        btnGuardarReservasXml = new javax.swing.JButton();
+        btnGuardarReservasExcel = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         menuItemNuevoCliente = new javax.swing.JMenuItem();
@@ -322,13 +328,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblTituloListaReservasVistaClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloListaReservasVistaClientes.setText("RESERVAS");
 
+        btnGuardarClientesXml.setText("Guardar XML");
+
+        btnGuardarClientesExcel.setText("Guardar Excel");
+
         javax.swing.GroupLayout pnlCuerpoClientesLayout = new javax.swing.GroupLayout(pnlCuerpoClientes);
         pnlCuerpoClientes.setLayout(pnlCuerpoClientesLayout);
         pnlCuerpoClientesLayout.setHorizontalGroup(
             pnlCuerpoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCuerpoClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addGroup(pnlCuerpoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                    .addGroup(pnlCuerpoClientesLayout.createSequentialGroup()
+                        .addComponent(btnGuardarClientesXml, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardarClientesExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlCuerpoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTituloListaReservasVistaClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -340,11 +356,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(pnlCuerpoClientesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCuerpoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addGroup(pnlCuerpoClientesLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlCuerpoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardarClientesXml)
+                            .addComponent(btnGuardarClientesExcel))
+                        .addGap(5, 5, 5))
                     .addGroup(pnlCuerpoClientesLayout.createSequentialGroup()
                         .addComponent(lblTituloListaReservasVistaClientes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -480,13 +502,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblTituloListaReservasVistaVehiculos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloListaReservasVistaVehiculos.setText("RESERVAS");
 
+        btnGuardarVehiculosXml.setText("Guardar XML");
+
+        btnGuardarVehiculosExcel.setText("Guardar Excel");
+
         javax.swing.GroupLayout pnlCuerpoVehiculosLayout = new javax.swing.GroupLayout(pnlCuerpoVehiculos);
         pnlCuerpoVehiculos.setLayout(pnlCuerpoVehiculosLayout);
         pnlCuerpoVehiculosLayout.setHorizontalGroup(
             pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addGroup(pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                    .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
+                        .addComponent(btnGuardarVehiculosXml, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardarVehiculosExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTituloListaReservasVistaVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -498,11 +530,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                    .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlCuerpoVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardarVehiculosXml)
+                            .addComponent(btnGuardarVehiculosExcel))
+                        .addGap(5, 5, 5))
                     .addGroup(pnlCuerpoVehiculosLayout.createSequentialGroup()
                         .addComponent(lblTituloListaReservasVistaVehiculos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane8)))
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -620,21 +658,35 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(tblReservas);
 
+        btnGuardarReservasXml.setText("Guardar XML");
+
+        btnGuardarReservasExcel.setText("Guardar Excel");
+
         javax.swing.GroupLayout pnlCuerpoClientes1Layout = new javax.swing.GroupLayout(pnlCuerpoClientes1);
         pnlCuerpoClientes1.setLayout(pnlCuerpoClientes1Layout);
         pnlCuerpoClientes1Layout.setHorizontalGroup(
             pnlCuerpoClientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCuerpoClientes1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1057, Short.MAX_VALUE)
+                .addGroup(pnlCuerpoClientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1057, Short.MAX_VALUE)
+                    .addGroup(pnlCuerpoClientes1Layout.createSequentialGroup()
+                        .addComponent(btnGuardarReservasXml, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardarReservasExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlCuerpoClientes1Layout.setVerticalGroup(
             pnlCuerpoClientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCuerpoClientes1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlCuerpoClientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarReservasXml)
+                    .addComponent(btnGuardarReservasExcel))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout pnlPrincipaReservasLayout = new javax.swing.GroupLayout(pnlPrincipaReservas);
@@ -882,22 +934,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_pMenuItemNuevaReservaActionPerformed
 
-    private void tblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMousePressed
-        if (tblClientes.getSelectedRow() != -1) {
-            int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
-            Cliente c = listaClientesVistaClientes.get(i);
-
-            listaReservasVistaClientes.clear();
-            List<Reserva> listaReservasCLiente = c.getReservaList();
-
-            for (Reserva r : listaReservasCLiente) {
-                listaReservasVistaClientes.addElement(r);
-            }
-
-            lstReservasVistaClientes.setModel(listaReservasVistaClientes);
-        }
-    }//GEN-LAST:event_tblClientesMousePressed
-
     private void btnNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaReservaActionPerformed
         nuevaReserva();
     }//GEN-LAST:event_btnNuevaReservaActionPerformed
@@ -1033,6 +1069,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         nuevoVehiculo();
     }//GEN-LAST:event_menuItemNuevoVehiculoActionPerformed
 
+    private void tblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMousePressed
+        if (tblClientes.getSelectedRow() != -1) {
+            int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
+            Cliente c = listaClientesVistaClientes.get(i);
+
+            listaReservasVistaClientes.clear();
+            List<Reserva> listaReservasCLiente = c.getReservaList();
+
+            for (Reserva r : listaReservasCLiente) {
+                listaReservasVistaClientes.addElement(r);
+            }
+
+            lstReservasVistaClientes.setModel(listaReservasVistaClientes);
+        }
+    }//GEN-LAST:event_tblClientesMousePressed
+
     private void nuevoCliente() {
         DiaCrearModificarCliente diaCrearCliente = new DiaCrearModificarCliente(this, true);
         diaCrearCliente.setLocationRelativeTo(this);
@@ -1058,6 +1110,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarCliente;
     private javax.swing.JButton btnEliminarReserva;
     private javax.swing.JButton btnEliminarVehiculo;
+    private javax.swing.JButton btnGuardarClientesExcel;
+    private javax.swing.JButton btnGuardarClientesXml;
+    private javax.swing.JButton btnGuardarReservasExcel;
+    private javax.swing.JButton btnGuardarReservasXml;
+    private javax.swing.JButton btnGuardarVehiculosExcel;
+    private javax.swing.JButton btnGuardarVehiculosXml;
     private javax.swing.JButton btnModificarCliente;
     private javax.swing.JButton btnModificarReserva;
     private javax.swing.JButton btnModificarVehiculo;
