@@ -939,6 +939,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 cargarDatos();
             }
+            
+            lstReservasVistaClientes.removeAll();
         }
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
@@ -1099,7 +1101,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarVehiculoActionPerformed
 
     private void btnEliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVehiculoActionPerformed
-        // TODO add your handling code here:
+        if (tblVehiculos.getSelectedRow() != -1) {
+            int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
+            Vehiculo c = listaVehiculosVistaVehiculos.get(i);
+
+            int dialogResult = JOptionPane.showConfirmDialog(
+                    null,
+                    "Vas a eliminar el vehículo seleccionado!!\n"
+                    + "También eliminarás todas las reservas de ese vehículo!!\n"
+                    + "¿Estás seguro?",
+                    "Eliminar vehículo",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (dialogResult == JOptionPane.YES_OPTION) {
+
+                em.getTransaction().begin();
+                em.remove(c);
+                em.getTransaction().commit();
+
+                cargarDatos();
+            }
+            
+            lstReservasVistaVehiculos.removeAll();
+        }
     }//GEN-LAST:event_btnEliminarVehiculoActionPerformed
 
     private void tblVehiculosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVehiculosMousePressed
