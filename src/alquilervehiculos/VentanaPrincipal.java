@@ -885,18 +885,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemVerReservasActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-
-        List<Cliente> results = new ArrayList<>();
         listaClientesVistaClientes.clear();
 
-        TypedQuery<Cliente> query = null;
-
-        query = em.createNamedQuery("Cliente.findByNombreOrApellidos", Cliente.class);
+        TypedQuery<Cliente> query = em.createNamedQuery("Cliente.findByNombreOrApellidos", Cliente.class);
 
         query.setParameter("nombre", "%" + txtBuscarClienteNombre.getText() + "%");
         query.setParameter("apellidos", "%" + txtBuscarClienteApellidos.getText() + "%");
 
-        results = query.getResultList();
+        List<Cliente> results = query.getResultList();
 
         for (Cliente c : results) {
             listaClientesVistaClientes.add(c);
@@ -1073,7 +1069,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoVehiculoActionPerformed
 
     private void btnBuscarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarVehiculoActionPerformed
-        // TODO add your handling code here:
+        listaVehiculosVistaVehiculos.clear();
+
+        TypedQuery<Vehiculo> query = em.createNamedQuery("Vehiculo.findByMarcaOrModelo", Vehiculo.class);
+
+        query.setParameter("marca", "%" + txtBuscarVehiculoMarca.getText() + "%");
+        query.setParameter("modelo", "%" + txtBuscarVehiculoModelo.getText() + "%");
+
+        List<Vehiculo> results = query.getResultList();
+
+        for (Vehiculo v : results) {
+            listaVehiculosVistaVehiculos.add(v);
+        }
+
+        tblVehiculos.setModel(new TableModelVehiculos(listaVehiculosVistaVehiculos));
+
+        listaReservasVistaVehiculos.clear();
     }//GEN-LAST:event_btnBuscarVehiculoActionPerformed
 
     private void btnModificarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarVehiculoActionPerformed
@@ -1091,7 +1102,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             listaReservasVistaVehiculos.clear();
             List<Reserva> listaReservasVehiculo = v.getReservaList();
-            
+
             ordenaPorFechaInicio(listaReservasVehiculo);
 
             for (Reserva r : listaReservasVehiculo) {
@@ -1122,7 +1133,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             listaReservasVistaClientes.clear();
             List<Reserva> listaReservasCLiente = c.getReservaList();
-            
+
             ordenaPorFechaInicio(listaReservasCLiente);
 
             for (Reserva r : listaReservasCLiente) {

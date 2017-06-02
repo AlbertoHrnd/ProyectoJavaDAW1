@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Vehiculo.findById", query = "SELECT v FROM Vehiculo v WHERE v.id = :id")
     , @NamedQuery(name = "Vehiculo.findByMatricula", query = "SELECT v FROM Vehiculo v WHERE v.matricula = :matricula")
     , @NamedQuery(name = "Vehiculo.findByMarca", query = "SELECT v FROM Vehiculo v WHERE v.marca = :marca")
+    , @NamedQuery(name = "Vehiculo.findByMarcaOrModelo", query = "SELECT v FROM Vehiculo v WHERE v.marca like :marca AND v.modelo like :modelo")
     , @NamedQuery(name = "Vehiculo.findByModelo", query = "SELECT v FROM Vehiculo v WHERE v.modelo = :modelo")
     , @NamedQuery(name = "Vehiculo.findByColor", query = "SELECT v FROM Vehiculo v WHERE v.color = :color")
     , @NamedQuery(name = "Vehiculo.findByCapacidad", query = "SELECT v FROM Vehiculo v WHERE v.capacidad = :capacidad")})
@@ -169,5 +170,5 @@ public class Vehiculo implements Serializable {
     @Override
     public String toString() {
         return marca + " " + modelo + ". (" + matricula + ")";
-    }    
+    }
 }
