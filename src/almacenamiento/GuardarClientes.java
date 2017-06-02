@@ -11,14 +11,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -81,7 +80,7 @@ public class GuardarClientes implements IDepositable {
             StreamResult sr = new StreamResult(archivo);
             DOMSource domSource = new DOMSource(doc);
             trans.transform(domSource, sr);
-        } catch (Exception ex) {
+        } catch (IllegalArgumentException | TransformerException ex) {
             Utils.muestraAlerta(ex);
         }
     }
@@ -116,9 +115,7 @@ public class GuardarClientes implements IDepositable {
 
         } catch (FileNotFoundException ex) {
             Utils.muestraAlerta(ex);
-        } catch (IOException ex) {
-            Utils.muestraAlerta(ex);
-        } catch (WriteException ex) {
+        } catch (IOException | WriteException ex) {
             Utils.muestraAlerta(ex);
         } finally {
             try {

@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -82,7 +83,7 @@ public class GuardarReservas implements IDepositable {
             StreamResult sr = new StreamResult(archivo);
             DOMSource domSource = new DOMSource(doc);
             trans.transform(domSource, sr);
-        } catch (Exception ex) {
+        } catch (IllegalArgumentException | TransformerException ex) {
             Utils.muestraAlerta(ex);
         }
     }
@@ -95,7 +96,7 @@ public class GuardarReservas implements IDepositable {
             out = new DataOutputStream(new FileOutputStream(archivo));
             WritableWorkbook w = Workbook.createWorkbook(out);
 
-            WritableSheet s = w.createSheet("Hoja Clientes", 0);
+            WritableSheet s = w.createSheet("Hoja Reservas", 0);
 
             //Para que salga el titulo de las columnas
             for (int i = 0; i < tabla.getColumnCount(); i++) {
@@ -126,5 +127,4 @@ public class GuardarReservas implements IDepositable {
             }
         }
     }
-
 }

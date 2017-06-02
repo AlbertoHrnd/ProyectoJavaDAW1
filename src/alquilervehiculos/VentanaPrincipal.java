@@ -1091,6 +1091,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             listaReservasVistaVehiculos.clear();
             List<Reserva> listaReservasVehiculo = v.getReservaList();
+            
+            ordenaPorFechaInicio(listaReservasVehiculo);
 
             for (Reserva r : listaReservasVehiculo) {
                 listaReservasVistaVehiculos.addElement(r);
@@ -1099,6 +1101,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             lstReservasVistaVehiculos.setModel(listaReservasVistaVehiculos);
         }
     }//GEN-LAST:event_tblVehiculosMousePressed
+
+    private void ordenaPorFechaInicio(List<Reserva> listaReservas) {
+        listaReservas.sort(new Comparator<Reserva>() {
+            @Override
+            public int compare(Reserva r1, Reserva r2) {
+                return r2.getFechaInicio().compareTo(r1.getFechaInicio());
+            }
+        });
+    }
 
     private void menuItemNuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevoVehiculoActionPerformed
         nuevoVehiculo();
@@ -1111,6 +1122,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             listaReservasVistaClientes.clear();
             List<Reserva> listaReservasCLiente = c.getReservaList();
+            
+            ordenaPorFechaInicio(listaReservasCLiente);
 
             for (Reserva r : listaReservasCLiente) {
                 listaReservasVistaClientes.addElement(r);
