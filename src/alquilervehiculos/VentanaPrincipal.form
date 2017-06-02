@@ -450,6 +450,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Guardar Excel"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarClientesExcelActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -729,6 +732,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Guardar Excel"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarVehiculosExcelActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -954,6 +960,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Guardar Excel"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarReservasExcelActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

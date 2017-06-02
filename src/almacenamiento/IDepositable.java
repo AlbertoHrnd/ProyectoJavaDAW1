@@ -14,5 +14,5 @@ import javax.swing.JTable;
  */
 public interface IDepositable {
      public void guardarXml(JTable tabla, File archivo);
-     public void guardarExcel(JTable tabla);
+     public void guardarExcel(JTable tabla, File archivo);
 }

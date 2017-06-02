@@ -341,6 +341,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnGuardarClientesExcel.setText("Guardar Excel");
+        btnGuardarClientesExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarClientesExcelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCuerpoClientesLayout = new javax.swing.GroupLayout(pnlCuerpoClientes);
         pnlCuerpoClientes.setLayout(pnlCuerpoClientesLayout);
@@ -520,6 +525,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnGuardarVehiculosExcel.setText("Guardar Excel");
+        btnGuardarVehiculosExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarVehiculosExcelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCuerpoVehiculosLayout = new javax.swing.GroupLayout(pnlCuerpoVehiculos);
         pnlCuerpoVehiculos.setLayout(pnlCuerpoVehiculosLayout);
@@ -681,6 +691,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnGuardarReservasExcel.setText("Guardar Excel");
+        btnGuardarReservasExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarReservasExcelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCuerpoClientes1Layout = new javax.swing.GroupLayout(pnlCuerpoClientes1);
         pnlCuerpoClientes1.setLayout(pnlCuerpoClientes1Layout);
@@ -1129,6 +1144,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarVehiculosXmlActionPerformed
 
+    private void btnGuardarVehiculosExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVehiculosExcelActionPerformed
+        File archivo = seleccionarArchivoExcel();
+        if (archivo != null) {
+            GuardarClientes gc = new GuardarClientes();
+            gc.guardarExcel(tblVehiculos, archivo);
+        }
+    }//GEN-LAST:event_btnGuardarVehiculosExcelActionPerformed
+
+    private void btnGuardarClientesExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClientesExcelActionPerformed
+        File archivo = seleccionarArchivoExcel();
+        if (archivo != null) {
+            GuardarClientes gc = new GuardarClientes();
+            gc.guardarExcel(tblClientes, archivo);
+        }
+    }//GEN-LAST:event_btnGuardarClientesExcelActionPerformed
+
+    private void btnGuardarReservasExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReservasExcelActionPerformed
+        File archivo = seleccionarArchivoExcel();
+        if (archivo != null) {
+            GuardarClientes gc = new GuardarClientes();
+            gc.guardarExcel(tblReservas, archivo);
+        }
+    }//GEN-LAST:event_btnGuardarReservasExcelActionPerformed
+
     private File seleccionarArchivoXml() {
         File archivo = null;
 
@@ -1143,6 +1182,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             // Forzamos la extensión a xml
             if (!archivo.toString().endsWith(".xml")) {
                 archivo = new File(archivo.toString() + ".xml");
+            }
+        }
+        return archivo;
+    }
+
+    private File seleccionarArchivoExcel() {
+        File archivo = null;
+
+        JFileChooser fc = new JFileChooser(new File("."));
+
+        fc.setFileFilter(new FileNameExtensionFilter("xls", "xls"));
+        int returnVal = fc.showSaveDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            archivo = fc.getSelectedFile();
+
+            // Forzamos la extensión a xml
+            if (!archivo.toString().endsWith(".xls")) {
+                archivo = new File(archivo.toString() + ".xls");
             }
         }
         return archivo;

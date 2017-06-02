@@ -7,6 +7,7 @@ package alquilervehiculos;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,5 +18,9 @@ public class Utils {
     public static String formateaFecha(Date fecha) {
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MMMM-yyyy");
         return formateador.format(fecha);
-    }    
+    }
+
+    public static void muestraAlerta(Exception ex) {
+        JOptionPane.showMessageDialog(null, "Ha ocurrido un error: "+ex);
+    }
 }

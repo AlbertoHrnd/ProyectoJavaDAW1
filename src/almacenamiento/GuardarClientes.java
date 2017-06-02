@@ -5,7 +5,14 @@
  */
 package almacenamiento;
 
+import alquilervehiculos.Utils;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +22,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -36,7 +48,7 @@ public class GuardarClientes implements IDepositable {
             DocumentBuilder db = dbf.newDocumentBuilder();
             doc = db.newDocument();
         } catch (ParserConfigurationException ex) {
-            System.out.println(ex);
+            Utils.muestraAlerta(ex);
         }
 
         Element root = doc.createElement("listaClientes");
@@ -69,14 +81,51 @@ public class GuardarClientes implements IDepositable {
             StreamResult sr = new StreamResult(archivo);
             DOMSource domSource = new DOMSource(doc);
             trans.transform(domSource, sr);
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception ex) {
+            Utils.muestraAlerta(ex);
         }
     }
 
     @Override
-    public void guardarExcel(JTable tabla) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void guardarExcel(JTable tabla, File archivo) {
 
+        DataOutputStream out = null;
+
+        try {
+            out = new DataOutputStream(new FileOutputStream(archivo));
+            WritableWorkbook w = Workbook.createWorkbook(out);
+
+            WritableSheet s = w.createSheet("Hoja Clientes", 0);
+
+            //Para que salga el titulo de las columnas
+            for (int i = 0; i < tabla.getColumnCount(); i++) {
+                for (int j = 0; j < tabla.getRowCount(); j++) {
+                    Object titulo = tabla.getColumnName(i);
+                    s.addCell(new Label(i, j, String.valueOf(titulo)));
+                }
+            }
+            for (int i = 0; i < tabla.getColumnCount(); i++) {
+                for (int j = 0; j < tabla.getRowCount(); j++) {
+                    Object object = tabla.getValueAt(j, i);
+                    s.addCell(new Label(i, j + 1, String.valueOf(object)));
+                }
+            }
+
+            w.write();
+            w.close();
+
+        } catch (FileNotFoundException ex) {
+            Utils.muestraAlerta(ex);
+        } catch (IOException ex) {
+            Utils.muestraAlerta(ex);
+        } catch (WriteException ex) {
+            Utils.muestraAlerta(ex);
+        } finally {
+            try {
+                out.close();
+            } catch (IOException ex) {
+                Utils.muestraAlerta(ex);
+            }
+        }
+    }
 }
