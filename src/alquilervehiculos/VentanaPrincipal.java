@@ -1088,7 +1088,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarVehiculoActionPerformed
 
     private void btnModificarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarVehiculoActionPerformed
-        // TODO add your handling code here:
+        if (tblVehiculos.getSelectedRow() != -1) {
+            int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
+            Vehiculo v = listaVehiculosVistaVehiculos.get(i);
+
+            DiaCrearModificarVehiculo diaCrearVehiculo = new DiaCrearModificarVehiculo(this, true, v);
+            diaCrearVehiculo.setLocationRelativeTo(this);
+            diaCrearVehiculo.setVisible(true);
+        }
     }//GEN-LAST:event_btnModificarVehiculoActionPerformed
 
     private void btnEliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVehiculoActionPerformed

@@ -5,10 +5,12 @@
  */
 package alquilervehiculos;
 
+import java.awt.Frame;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.TypedQuery;
+import model.Cliente;
 import model.Garaje;
 import model.Vehiculo;
 
@@ -38,6 +40,37 @@ public class DiaCrearModificarVehiculo extends javax.swing.JDialog {
         for (Garaje g : garajes) {
             cmbGaraje.addItem(g);
         }
+    }
+    
+    /**
+     * Constructor para modificar el vehículo que se le pasa
+     *
+     * @param parent
+     * @param modal
+     * @param vehiculo Vehículo a modificar
+     */
+    public DiaCrearModificarVehiculo(Frame parent, boolean modal, Vehiculo vehiculo) {
+        super(parent, modal);
+        initComponents();
+
+        lblTitulo.setText("Modificar Vehículo");
+
+        padre = (VentanaPrincipal) parent;
+        this.vehiculo = vehiculo;
+
+        txtMarca.setText(vehiculo.getMarca());
+        txtModelo.setText(vehiculo.getModelo());
+        txtMatricula.setText(vehiculo.getMatricula());
+        txtColor.setText(vehiculo.getColor());
+        
+        TypedQuery<Garaje> queryGarajes = padre.em.createNamedQuery("Garaje.findAll", Garaje.class);
+        List<Garaje> garajes = queryGarajes.getResultList();
+        
+        for (Garaje g : garajes) {
+            cmbGaraje.addItem(g);
+        }
+        
+        cmbGaraje.setSelectedItem(vehiculo.getGarajeId());
     }
 
     /**
