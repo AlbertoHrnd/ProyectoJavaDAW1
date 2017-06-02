@@ -15,7 +15,7 @@ import model.Vehiculo;
  */
 public class TableModelVehiculos extends AbstractTableModel {
 
-    private String[] columnNames = {"Marca", "Modelo", "Matrícula", "Color"};
+    private String[] columnNames = {"Marca", "Modelo", "Matrícula", "Color", "Garaje"};
     List<Vehiculo> listaVehiculos;
 
     public TableModelVehiculos(List<Vehiculo> listaVehiculos) {
@@ -33,7 +33,7 @@ public class TableModelVehiculos extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -53,6 +53,8 @@ public class TableModelVehiculos extends AbstractTableModel {
                 return v.getMatricula();
             case (3):
                 return v.getColor();
+            case (4):
+                return v.getGarajeId();
             default:
                 return null;
         }

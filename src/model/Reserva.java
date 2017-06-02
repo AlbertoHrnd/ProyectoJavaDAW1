@@ -173,15 +173,15 @@ public class Reserva implements Serializable {
     public void setVehiculoId(Vehiculo vehiculoId) {
         this.vehiculoId = vehiculoId;
     }
-    
+
     public BigDecimal getPrecioTotal() {
         long dias = calculaDiasEntre(fechaInicio, fechaFin);
         return precioDia.multiply(BigDecimal.valueOf(dias));
     }
-    
-    private long calculaDiasEntre(Date fechaInicio, Date fechaFin) {        
+
+    private long calculaDiasEntre(Date fechaInicio, Date fechaFin) {
         long MILLISECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día
-        
+
         long diferencia = ((fechaFin.getTime() - fechaInicio.getTime()) / MILLISECS_PER_DAY);
         return diferencia;
     }
@@ -209,7 +209,8 @@ public class Reserva implements Serializable {
     @Override
     public String toString() {
         return vehiculoId.getMarca() + " " + vehiculoId.getModelo()
-                + ": De " + Utils.formateaFecha(fechaInicio)
-                + " a " + Utils.formateaFecha(fechaFin) + ".";
+                + ": " + Utils.formateaFecha(fechaInicio)
+                + " a " + Utils.formateaFecha(fechaFin) + ". - "
+                + clienteId.getNombre() + " " + clienteId.getApellidos();
     }
 }
