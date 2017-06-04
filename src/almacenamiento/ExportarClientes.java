@@ -21,6 +21,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import jxl.CellView;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -34,7 +35,7 @@ import org.w3c.dom.Text;
  *
  * @author Alberto
  */
-public class GuardarClientes implements IDepositable {
+public class ExportarClientes implements IDepositable {
 
     @Override
     public void guardarXml(JTable tabla, File archivo) {
@@ -98,11 +99,10 @@ public class GuardarClientes implements IDepositable {
 
             //Para que salga el titulo de las columnas
             for (int i = 0; i < tabla.getColumnCount(); i++) {
-                for (int j = 0; j < tabla.getRowCount(); j++) {
-                    Object titulo = tabla.getColumnName(i);
-                    s.addCell(new Label(i, j, String.valueOf(titulo)));
-                }
+                String titulo = tabla.getColumnName(i);
+                s.addCell(new Label(i, 0, titulo));
             }
+
             for (int i = 0; i < tabla.getColumnCount(); i++) {
                 for (int j = 0; j < tabla.getRowCount(); j++) {
                     Object object = tabla.getValueAt(j, i);

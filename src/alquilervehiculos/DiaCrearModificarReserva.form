@@ -169,6 +169,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrecio">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPrecioFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
@@ -186,6 +189,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLitrosGasolina">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtLitrosGasolinaFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblLitroGasolina">
           <Properties>

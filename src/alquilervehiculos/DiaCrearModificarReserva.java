@@ -74,11 +74,17 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         padre = (VentanaPrincipal) parent;
         reserva = new Reserva();
 
+        this.vehiculo = vehiculo;
+
         cmbVehiculos.addItem(vehiculo);
+
+        // Deshabilitamos cambiar vehiculo
+        cmbVehiculos.setEnabled(false);
 
         for (Cliente c : padre.listaClientesVistaClientes) {
             cmbClientes.addItem(c);
         }
+
     }
 
     /**
@@ -164,6 +170,12 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPrecio.setText("Precio / día");
 
+        txtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPrecioFocusGained(evt);
+            }
+        });
+
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +184,12 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         });
 
         lblError.setForeground(new java.awt.Color(255, 0, 0));
+
+        txtLitrosGasolina.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtLitrosGasolinaFocusGained(evt);
+            }
+        });
 
         lblLitroGasolina.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblLitroGasolina.setText("Litros Gasolina");
@@ -314,34 +332,35 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
                 return;
             }
 
-            reserva.setClienteId(cliente);
-            reserva.setVehiculoId(vehiculo);
+            if (lblError.getText().equals("")) {
 
-            // Cargamos la agencia 1 por defecto
-            agencia = padre.em.find(Agencia.class, 1);
-            reserva.setAgenciaId(agencia);
+                reserva.setClienteId(cliente);
+                reserva.setVehiculoId(vehiculo);
 
-            reserva.setDevuelto(chkDevuelto.isSelected());
-            reserva.setEntregado(chkEntregado.isSelected());
+                // Cargamos la agencia 1 por defecto
+                agencia = padre.em.find(Agencia.class, 1);
+                reserva.setAgenciaId(agencia);
 
-            reserva.setFechaInicio(dtpFechaInicio.getDate());
-            reserva.setFechaFin(dtpFechaFin.getDate());
+                reserva.setDevuelto(chkDevuelto.isSelected());
+                reserva.setEntregado(chkEntregado.isSelected());
 
-            System.out.println(reserva.toString());
+                reserva.setFechaInicio(dtpFechaInicio.getDate());
+                reserva.setFechaFin(dtpFechaFin.getDate());
 
-            padre.em.getTransaction().begin();
-            padre.em.persist(reserva);
-            padre.em.getTransaction().commit();
+                padre.em.getTransaction().begin();
+                padre.em.persist(reserva);
+                padre.em.getTransaction().commit();
 
-            // Refrescamos el cliente y el vehículo involucrados
-            // para que muestre bien las listas
-            padre.em.refresh(cliente);
-            padre.em.refresh(vehiculo);
+                // Refrescamos el cliente y el vehículo involucrados
+                // para que muestre bien las listas
+                padre.em.refresh(cliente);
+                padre.em.refresh(vehiculo);
 
-            padre.cargarDatos();
-            padre.repaint();
+                padre.cargarDatos();
+                padre.repaint();
 
-            this.dispose();
+                this.dispose();
+            }
         } else {
             lblError.setText("Rellene todos los campos");
         }
@@ -355,6 +374,14 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         compruebaFechas();
     }//GEN-LAST:event_dtpFechaFinPropertyChange
 
+    private void txtPrecioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioFocusGained
+        lblError.setText("");
+    }//GEN-LAST:event_txtPrecioFocusGained
+
+    private void txtLitrosGasolinaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLitrosGasolinaFocusGained
+        lblError.setText("");
+    }//GEN-LAST:event_txtLitrosGasolinaFocusGained
+
     private void compruebaFechas() {
         Date ini = dtpFechaInicio.getDate();
         Date fin = dtpFechaFin.getDate();
@@ -364,7 +391,10 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
                 compruebaDisponibilidad(dtpFechaInicio.getDate(), dtpFechaFin.getDate());
             } else {
                 lblError.setText("<html>La fecha de inicio debe ser anterior a<br>la fecha de fin.</html>");
-                cmbVehiculos.removeAllItems();
+                if (cmbVehiculos.isEnabled()) {
+                    // Si el vehículo no ha sido pasado a la reserva en su creación.
+                    cmbVehiculos.removeAllItems();
+                }
             }
         } else {
             lblError.setText("<html>Debes seleccionar un rango de fechas<br>para comprobar la disponibilidad.</html>");
@@ -384,17 +414,27 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
         List<Vehiculo> listaVehiculos = q.getResultList();
 
-        cmbVehiculos.removeAllItems();
+        if (cmbVehiculos.isEnabled()) {
+            cmbVehiculos.removeAllItems();
 
-        if (listaVehiculos.isEmpty()) {
-            cmbVehiculos.setEnabled(false);
-            lblError.setText("No hay vehículos disponibles en ese rango de fechas.");
-        } else {
-            for (Vehiculo v : listaVehiculos) {
-                cmbVehiculos.addItem(v);
+            if (listaVehiculos.isEmpty()) {
+                lblError.setText("No hay vehículos disponibles en ese rango de fechas.");
+            } else {
+                for (Vehiculo v : listaVehiculos) {
+                    cmbVehiculos.addItem(v);
+                }
+                lblError.setText("");
             }
-            cmbVehiculos.setEnabled(true);
-            lblError.setText("");            
+        } else {
+            // Si cmbVehiculos no está enabled es que se seleccionó un vehículo 
+            // anteriormente a generar la nueva reserva, por lo que hay que 
+            // comprobar si ese vehículo en concreto está disponible.            
+
+            if (!listaVehiculos.contains(vehiculo)) {
+                lblError.setText("<html>El vehículo seleccionado no está disponible<br>en ese rango de fechas.</html>");
+            } else {
+                lblError.setText("");
+            }
         }
     }
 

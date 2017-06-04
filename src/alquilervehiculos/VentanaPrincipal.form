@@ -407,9 +407,6 @@
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="tblClientes">
-                          <Events>
-                            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblClientesMousePressed"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -689,9 +686,6 @@
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="tblVehiculos">
-                          <Events>
-                            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblVehiculosMousePressed"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

@@ -17,9 +17,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import jxl.CellView;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -33,7 +35,7 @@ import org.w3c.dom.Text;
  *
  * @author Alberto
  */
-public class GuardarVehiculos implements IDepositable {
+public class ExportarReservas implements IDepositable {
 
     @Override
     public void guardarXml(JTable tabla, File archivo) {
@@ -49,22 +51,25 @@ public class GuardarVehiculos implements IDepositable {
             Utils.muestraAlerta(ex);
         }
 
-        Element root = doc.createElement("listaVehiculos");
+        Element root = doc.createElement("listaReservas");
 
         doc.appendChild(root);
 
         // Recorremos la tabla
         for (int i = 0; i < tabla.getRowCount(); i++) {
 
-            Element vehiculo = doc.createElement("vehiculo");
-            root.appendChild(vehiculo);
+            Element reserva = doc.createElement("reserva");
+            root.appendChild(reserva);
 
             for (int j = 0; j < tabla.getColumnCount(); j++) {
                 Object o = tabla.getValueAt(i, j);
 
-                Element nombre = doc.createElement(tabla.getColumnName(j));
+                // Eliminamos los espacios y las barras, no están permitidos en xml tags
+                String columna = tabla.getColumnName(j).replaceAll("\\s", "").replaceAll("/", "-");
+
+                Element nombre = doc.createElement(columna);
                 Text nombreTxt = doc.createTextNode(o.toString());
-                vehiculo.appendChild(nombre);
+                reserva.appendChild(nombre);
                 nombre.appendChild(nombreTxt);
             }
         }
@@ -79,7 +84,7 @@ public class GuardarVehiculos implements IDepositable {
             StreamResult sr = new StreamResult(archivo);
             DOMSource domSource = new DOMSource(doc);
             trans.transform(domSource, sr);
-        } catch (Exception ex) {
+        } catch (IllegalArgumentException | TransformerException ex) {
             Utils.muestraAlerta(ex);
         }
     }
@@ -87,20 +92,20 @@ public class GuardarVehiculos implements IDepositable {
     @Override
     public void guardarExcel(JTable tabla, java.io.File archivo) {
         DataOutputStream out = null;
+        int[] anchoColumna = {40, 20, 10, 10, 30, 10, 10};
 
         try {
             out = new DataOutputStream(new FileOutputStream(archivo));
             WritableWorkbook w = Workbook.createWorkbook(out);
 
-            WritableSheet s = w.createSheet("Hoja Vehículos", 0);
+            WritableSheet s = w.createSheet("Hoja Reservas", 0);
 
             //Para que salga el titulo de las columnas
             for (int i = 0; i < tabla.getColumnCount(); i++) {
-                for (int j = 0; j < tabla.getRowCount(); j++) {
-                    Object titulo = tabla.getColumnName(i);
-                    s.addCell(new Label(i, j, String.valueOf(titulo)));
-                }
+                String titulo = tabla.getColumnName(i);
+                s.addCell(new Label(i, 0, titulo));
             }
+
             for (int i = 0; i < tabla.getColumnCount(); i++) {
                 for (int j = 0; j < tabla.getRowCount(); j++) {
                     Object object = tabla.getValueAt(j, i);

@@ -5,9 +5,13 @@
  */
 package alquilervehiculos;
 
-import almacenamiento.GuardarClientes;
-import almacenamiento.GuardarReservas;
-import almacenamiento.GuardarVehiculos;
+import almacenamiento.ExportarClientes;
+import almacenamiento.ExportarReservas;
+import almacenamiento.ExportarVehiculos;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -65,9 +69,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblVehiculos.setAutoCreateRowSorter(true);
         tblVehiculos.setComponentPopupMenu(pMenuTabla);
 
-        // Listener para seleccionar la fila de la tabla cuando botón derecho
-        tblClientes.addMouseListener(new TableMouseListener(tblClientes));
-        tblVehiculos.addMouseListener(new TableMouseListener(tblReservas));
+        // Listeners para seleccionar la fila de la tabla cuando botón derecho
+        tblVehiculos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent event) {
+                // Selecciona la fila en la que se pulsa el ratón
+                // Se implementa para que marque el elemento seleccionado al
+                // pulsar botón derecho sobre una fila
+                Point point = event.getPoint();
+                int currentRow = tblClientes.rowAtPoint(point);
+                tblClientes.setRowSelectionInterval(currentRow, currentRow);
+                cargarListaReservasDeVehiculoSeleccionado();
+            }
+        });
+
+        tblClientes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent event) {
+                // Selecciona la fila en la que se pulsa el ratón
+                // Se implementa para que marque el elemento seleccionado al
+                // pulsar botón derecho sobre una fila
+                Point point = event.getPoint();
+                int currentRow = tblClientes.rowAtPoint(point);
+                tblClientes.setRowSelectionInterval(currentRow, currentRow);
+                cargarListaReservasDeClienteSeleccionado();
+            }
+        });
 
         cargarDatos();
     }
@@ -321,11 +348,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblClientesMousePressed(evt);
-            }
-        });
         jScrollPane3.setViewportView(tblClientes);
 
         jScrollPane2.setViewportView(lstReservasVistaClientes);
@@ -505,11 +527,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tblVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblVehiculosMousePressed(evt);
-            }
-        });
         jScrollPane7.setViewportView(tblVehiculos);
 
         jScrollPane8.setViewportView(lstReservasVistaVehiculos);
@@ -939,7 +956,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 cargarDatos();
             }
-            
+
             lstReservasVistaClientes.removeAll();
         }
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
@@ -1009,6 +1026,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemNuevoClienteActionPerformed
 
     private void menuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCerrarActionPerformed
+        em.close();
+        emf.close();
         System.exit(0);
     }//GEN-LAST:event_menuItemCerrarActionPerformed
 
@@ -1121,28 +1140,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 cargarDatos();
             }
-            
+
             lstReservasVistaVehiculos.removeAll();
         }
     }//GEN-LAST:event_btnEliminarVehiculoActionPerformed
 
-    private void tblVehiculosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVehiculosMousePressed
+    private void cargarListaReservasDeVehiculoSeleccionado() {
         if (tblVehiculos.getSelectedRow() != -1) {
             int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
             Vehiculo v = listaVehiculosVistaVehiculos.get(i);
-
+            
             listaReservasVistaVehiculos.clear();
             List<Reserva> listaReservasVehiculo = v.getReservaList();
-
+            
             ordenaPorFechaInicio(listaReservasVehiculo);
-
+            
             for (Reserva r : listaReservasVehiculo) {
                 listaReservasVistaVehiculos.addElement(r);
             }
-
+            
             lstReservasVistaVehiculos.setModel(listaReservasVistaVehiculos);
         }
-    }//GEN-LAST:event_tblVehiculosMousePressed
+    }
 
     private void ordenaPorFechaInicio(List<Reserva> listaReservas) {
         listaReservas.sort(new Comparator<Reserva>() {
@@ -1157,7 +1176,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         nuevoVehiculo();
     }//GEN-LAST:event_menuItemNuevoVehiculoActionPerformed
 
-    private void tblClientesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMousePressed
+    private void cargarListaReservasDeClienteSeleccionado() {
         if (tblClientes.getSelectedRow() != -1) {
             int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
             Cliente c = listaClientesVistaClientes.get(i);
@@ -1173,12 +1192,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             lstReservasVistaClientes.setModel(listaReservasVistaClientes);
         }
-    }//GEN-LAST:event_tblClientesMousePressed
+    }
 
     private void btnGuardarClientesXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClientesXmlActionPerformed
         File archivo = seleccionarArchivoXml();
         if (archivo != null) {
-            GuardarClientes gc = new GuardarClientes();
+            ExportarClientes gc = new ExportarClientes();
             gc.guardarXml(tblClientes, archivo);
         }
     }//GEN-LAST:event_btnGuardarClientesXmlActionPerformed
@@ -1186,7 +1205,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnGuardarReservasXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReservasXmlActionPerformed
         File archivo = seleccionarArchivoXml();
         if (archivo != null) {
-            GuardarReservas gr = new GuardarReservas();
+            ExportarReservas gr = new ExportarReservas();
             gr.guardarXml(tblReservas, archivo);
         }
     }//GEN-LAST:event_btnGuardarReservasXmlActionPerformed
@@ -1194,7 +1213,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnGuardarVehiculosXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVehiculosXmlActionPerformed
         File archivo = seleccionarArchivoXml();
         if (archivo != null) {
-            GuardarVehiculos gv = new GuardarVehiculos();
+            ExportarVehiculos gv = new ExportarVehiculos();
             gv.guardarXml(tblVehiculos, archivo);
         }
     }//GEN-LAST:event_btnGuardarVehiculosXmlActionPerformed
@@ -1202,7 +1221,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnGuardarVehiculosExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVehiculosExcelActionPerformed
         File archivo = seleccionarArchivoExcel();
         if (archivo != null) {
-            GuardarClientes gc = new GuardarClientes();
+            ExportarClientes gc = new ExportarClientes();
             gc.guardarExcel(tblVehiculos, archivo);
         }
     }//GEN-LAST:event_btnGuardarVehiculosExcelActionPerformed
@@ -1210,7 +1229,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnGuardarClientesExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClientesExcelActionPerformed
         File archivo = seleccionarArchivoExcel();
         if (archivo != null) {
-            GuardarClientes gc = new GuardarClientes();
+            ExportarClientes gc = new ExportarClientes();
             gc.guardarExcel(tblClientes, archivo);
         }
     }//GEN-LAST:event_btnGuardarClientesExcelActionPerformed
@@ -1218,7 +1237,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnGuardarReservasExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarReservasExcelActionPerformed
         File archivo = seleccionarArchivoExcel();
         if (archivo != null) {
-            GuardarClientes gc = new GuardarClientes();
+            ExportarClientes gc = new ExportarClientes();
             gc.guardarExcel(tblReservas, archivo);
         }
     }//GEN-LAST:event_btnGuardarReservasExcelActionPerformed
