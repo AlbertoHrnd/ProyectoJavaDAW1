@@ -7,6 +7,7 @@ package alquilervehiculos;
 
 import java.awt.Frame;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
@@ -403,6 +404,8 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
     private void compruebaDisponibilidad(Date fechaInicio, Date fechaFin) {
 
+        // Seleccionamos todos los vehículos que no están reservados entre 
+        // las dos fechas seleccionadas
         Query q = padre.em.createNativeQuery("SELECT * from vehiculo where id NOT IN "
                 + "(SELECT vehiculo_id from reserva "
                 + "where (fecha_inicio between :inicio and :fin "
@@ -414,6 +417,39 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
         List<Vehiculo> listaVehiculos = q.getResultList();
 
+        // Si la reserva ya existe en BBDD
+        // (Esto significa que la reserva no es una nueva reserva)        
+        if (reserva.getId() != null) {
+
+            List listaReservasVehiculoEnFechas = new ArrayList<>();
+
+            // Añadimos como disponible el vehículo propio de la reserva
+            // cuando este vehículo no esté reservado en las fechas seleccionadas
+            // en otra reserva distinta
+            Query p = padre.em.createNativeQuery("SELECT * from reserva "
+                    + "where vehiculo_id = :vehiculoId AND id <> :reservaId "
+                    + "AND ((fecha_inicio between :inicio and :fin "
+                    + "OR fecha_fin between :inicio and :fin) "
+                    + "OR (fecha_inicio < :inicio and fecha_fin > :fin))", Reserva.class);
+
+            p.setParameter("inicio", fechaInicio);
+            p.setParameter("fin", fechaFin);
+            p.setParameter("vehiculoId", reserva.getVehiculoId().getId());
+            p.setParameter("reservaId", reserva.getId());
+            
+            // Si la consulta anterior devuelve algo el vehículo seleccionado
+            // está reservado en esas fechas
+            listaReservasVehiculoEnFechas = p.getResultList();
+            
+            if (listaReservasVehiculoEnFechas.isEmpty()) {
+                listaVehiculos.add(reserva.getVehiculoId());
+                lblError.setText("");
+            } else {
+                lblError.setText("<html>El vehículo seleccionado no está disponible<br>en ese rango de fechas.</html>");
+            }
+
+        }
+
         if (cmbVehiculos.isEnabled()) {
             cmbVehiculos.removeAllItems();
 
@@ -422,6 +458,13 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             } else {
                 for (Vehiculo v : listaVehiculos) {
                     cmbVehiculos.addItem(v);
+                }
+                // Si la reserva ya existe en BBDD
+                // (Esto significa que la reserva no es una nueva reserva)
+                // Añadimos como seleccionado por defecto el vehículo propio
+                // de la reserva
+                if (reserva.getId() != null) {
+                    cmbVehiculos.setSelectedItem(reserva.getVehiculoId());
                 }
                 lblError.setText("");
             }
