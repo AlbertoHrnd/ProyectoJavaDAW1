@@ -405,7 +405,10 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
     private void compruebaDisponibilidad(Date fechaInicio, Date fechaFin) {
 
         // Seleccionamos todos los vehículos que no están reservados entre 
-        // las dos fechas seleccionadas
+        // las dos fechas seleccionadas. Esta sentencia no tiene en cuenta
+        // el caso de que la reserva estuviese siendo modificada (ya
+        // existiera en la base de datos)
+        
         Query q = padre.em.createNativeQuery("SELECT * from vehiculo where id NOT IN "
                 + "(SELECT vehiculo_id from reserva "
                 + "where (fecha_inicio between :inicio and :fin "
@@ -417,9 +420,14 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
         List<Vehiculo> listaVehiculos = q.getResultList();
 
-        // Si la reserva ya existe en BBDD
-        // (Esto significa que la reserva no es una nueva reserva)        
-        if (reserva.getId() != null) {
+        // Si la reserva ya existe en BBDD entonces la reserva 
+        // no es una nueva reserva sino que se está modificando
+        // una reserva existente, por lo que hay que tener en cuenta
+        // la disponibilidad del vehículo de esta reserva también. 
+        // (Si no hubiera sido añadido ya por la sentencia anterior 
+        // porque las nuevas fechas no se solaparan con las fechas 
+        // originales de la reserva a modificar)
+        if (reserva.getId() != null && !listaVehiculos.contains(reserva.getVehiculoId())) {
 
             List listaReservasVehiculoEnFechas = new ArrayList<>();
 
@@ -436,21 +444,33 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
             p.setParameter("fin", fechaFin);
             p.setParameter("vehiculoId", reserva.getVehiculoId().getId());
             p.setParameter("reservaId", reserva.getId());
-            
-            // Si la consulta anterior devuelve algo el vehículo seleccionado
-            // está reservado en esas fechas
+
             listaReservasVehiculoEnFechas = p.getResultList();
-            
+
+            // Si la consulta anterior no devuelve nada el vehículo seleccionado
+            // está disponible en las nuevas fechas seleccionadas y habría
+            // que añadirlo a la lista de vehículos disponibles.
             if (listaReservasVehiculoEnFechas.isEmpty()) {
                 listaVehiculos.add(reserva.getVehiculoId());
                 lblError.setText("");
-            } else {
-                lblError.setText("<html>El vehículo seleccionado no está disponible<br>en ese rango de fechas.</html>");
             }
-
         }
 
-        if (cmbVehiculos.isEnabled()) {
+        if (!cmbVehiculos.isEnabled()) {
+            // Si cmbVehiculos no está enabled es que se seleccionó un vehículo 
+            // anteriormente a generar la nueva reserva y ese vehículo no se 
+            // puede modificar, por lo que solo hay que 
+            // comprobar si ese vehículo en concreto está disponible.            
+
+            if (!listaVehiculos.contains(vehiculo)) {
+                lblError.setText("<html>El vehículo seleccionado no está disponible<br>en ese rango de fechas.</html>");
+            } else {
+                lblError.setText("");
+            }
+
+        } else {
+            // Si cmbVehiculos está enabled se puede seleccionar vehículo
+            // por lo tanto cargamos los vehículos disponibles
             cmbVehiculos.removeAllItems();
 
             if (listaVehiculos.isEmpty()) {
@@ -466,16 +486,6 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
                 if (reserva.getId() != null) {
                     cmbVehiculos.setSelectedItem(reserva.getVehiculoId());
                 }
-                lblError.setText("");
-            }
-        } else {
-            // Si cmbVehiculos no está enabled es que se seleccionó un vehículo 
-            // anteriormente a generar la nueva reserva, por lo que hay que 
-            // comprobar si ese vehículo en concreto está disponible.            
-
-            if (!listaVehiculos.contains(vehiculo)) {
-                lblError.setText("<html>El vehículo seleccionado no está disponible<br>en ese rango de fechas.</html>");
-            } else {
                 lblError.setText("");
             }
         }
