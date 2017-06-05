@@ -89,7 +89,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 // pulsar botón derecho sobre una fila
                 int row = lstReservasVistaClientes.locationToIndex(event.getPoint());
                 lstReservasVistaClientes.setSelectedIndex(row);
-                cargarListaReservasDeClienteSeleccionado();
             }
         });
 
@@ -101,7 +100,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 // pulsar botón derecho sobre una fila
                 int row = lstReservasVistaVehiculos.locationToIndex(event.getPoint());
                 lstReservasVistaVehiculos.setSelectedIndex(row);
-                cargarListaReservasDeVehiculoSeleccionado();
             }
         });
     }
@@ -1452,6 +1450,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_pMenuItemModificarReservaActionPerformed
 
     private void cargarListaTablaReservas(List<Reserva> results) {
+        ordenaPorFechaInicio(results);
+        
         for (Reserva r : results) {
             listaReservasVistaReserva.add(r);
         }
