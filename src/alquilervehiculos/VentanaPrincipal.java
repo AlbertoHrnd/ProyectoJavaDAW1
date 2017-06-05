@@ -59,7 +59,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.setIconImage(im);
 
         pnlVehiculos.setVisible(false);
-        pnlReservas.setVisible(false);
+        pnlClientes.setVisible(false);
 
         listaClientesVistaClientes = new ArrayList<>();
         listaReservasVistaClientes = new DefaultListModel<>();
