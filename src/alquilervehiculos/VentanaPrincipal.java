@@ -1138,66 +1138,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarVehiculoActionPerformed
 
-    private void cargarListaReservasDeVehiculoSeleccionado() {
-        if (tblVehiculos.getSelectedRow() != -1) {
-            int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
-            Vehiculo v = listaVehiculosVistaVehiculos.get(i);
-
-            listaReservasVistaVehiculos.clear();
-            List<Reserva> listaReservasVehiculo = v.getReservaList();
-
-            if (!listaReservasVehiculo.isEmpty()) {
-                ordenaPorFechaInicio(listaReservasVehiculo);
-
-                for (Reserva r : listaReservasVehiculo) {
-                    listaReservasVistaVehiculos.addElement(r);
-                }
-
-                lstReservasVistaVehiculos.setComponentPopupMenu(pMenuLista);
-
-            } else {
-                lstReservasVistaVehiculos.setComponentPopupMenu(null);
-            }
-            lstReservasVistaVehiculos.setModel(listaReservasVistaVehiculos);
-        }
-    }
-
-    private void ordenaPorFechaInicio(List<Reserva> listaReservas) {
-        listaReservas.sort(new Comparator<Reserva>() {
-            @Override
-            public int compare(Reserva r1, Reserva r2) {
-                return r2.getFechaInicio().compareTo(r1.getFechaInicio());
-            }
-        });
-    }
-
     private void menuItemNuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevoVehiculoActionPerformed
         nuevoVehiculo();
     }//GEN-LAST:event_menuItemNuevoVehiculoActionPerformed
-
-    private void cargarListaReservasDeClienteSeleccionado() {
-        if (tblClientes.getSelectedRow() != -1) {
-            int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
-            Cliente c = listaClientesVistaClientes.get(i);
-
-            listaReservasVistaClientes.clear();
-            List<Reserva> listaReservasCLiente = c.getReservaList();
-
-            if (!listaReservasCLiente.isEmpty()) {
-                ordenaPorFechaInicio(listaReservasCLiente);
-
-                for (Reserva r : listaReservasCLiente) {
-                    listaReservasVistaClientes.addElement(r);
-                }
-
-                lstReservasVistaClientes.setComponentPopupMenu(pMenuLista);
-
-            } else {
-                lstReservasVistaClientes.setComponentPopupMenu(null);
-            }
-            lstReservasVistaClientes.setModel(listaReservasVistaClientes);
-        }
-    }
 
     private void btnGuardarClientesXmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClientesXmlActionPerformed
         File archivo = seleccionarArchivoXml();
@@ -1411,6 +1354,54 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_pMenuItemModificarReservaActionPerformed
+    
+    private void cargarListaReservasDeClienteSeleccionado() {
+        if (tblClientes.getSelectedRow() != -1) {
+            int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
+            Cliente c = listaClientesVistaClientes.get(i);
+
+            listaReservasVistaClientes.clear();
+            List<Reserva> listaReservasCLiente = c.getReservaList();
+
+            if (!listaReservasCLiente.isEmpty()) {
+                ordenaPorFechaInicio(listaReservasCLiente);
+
+                for (Reserva r : listaReservasCLiente) {
+                    listaReservasVistaClientes.addElement(r);
+                }
+
+                lstReservasVistaClientes.setComponentPopupMenu(pMenuLista);
+
+            } else {
+                lstReservasVistaClientes.setComponentPopupMenu(null);
+            }
+            lstReservasVistaClientes.setModel(listaReservasVistaClientes);
+        }
+    }
+    
+    private void cargarListaReservasDeVehiculoSeleccionado() {
+        if (tblVehiculos.getSelectedRow() != -1) {
+            int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
+            Vehiculo v = listaVehiculosVistaVehiculos.get(i);
+
+            listaReservasVistaVehiculos.clear();
+            List<Reserva> listaReservasVehiculo = v.getReservaList();
+
+            if (!listaReservasVehiculo.isEmpty()) {
+                ordenaPorFechaInicio(listaReservasVehiculo);
+
+                for (Reserva r : listaReservasVehiculo) {
+                    listaReservasVistaVehiculos.addElement(r);
+                }
+
+                lstReservasVistaVehiculos.setComponentPopupMenu(pMenuLista);
+
+            } else {
+                lstReservasVistaVehiculos.setComponentPopupMenu(null);
+            }
+            lstReservasVistaVehiculos.setModel(listaReservasVistaVehiculos);
+        }
+    }
 
     private void cargarListaTablaReservas(List<Reserva> results) {
         ordenaPorFechaInicio(results);
@@ -1422,6 +1413,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
 
         lblErrorBuscarReservas.setText("");
+    }    
+    
+    private void ordenaPorFechaInicio(List<Reserva> listaReservas) {
+        listaReservas.sort(new Comparator<Reserva>() {
+            @Override
+            public int compare(Reserva r1, Reserva r2) {
+                return r2.getFechaInicio().compareTo(r1.getFechaInicio());
+            }
+        });
     }
 
     private void cargarListaTablaVehiculos(List<Vehiculo> vehiculos) {
