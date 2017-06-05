@@ -248,6 +248,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnEliminarReserva = new javax.swing.JButton();
         tbtnVerPendientesDevolucion = new javax.swing.JToggleButton();
         tbtnVerPendientesEntrega = new javax.swing.JToggleButton();
+        dtpBuscarReservaDeFechaInicio = new org.jdesktop.swingx.JXDatePicker();
+        dtpBuscarReservasAFechaInicio = new org.jdesktop.swingx.JXDatePicker();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblErrorBuscarReservas = new javax.swing.JLabel();
+        tBtnFiltrarPorFechaInicio = new javax.swing.JToggleButton();
         pnlCuerpoClientes1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblReservas = new javax.swing.JTable();
@@ -673,6 +679,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        dtpBuscarReservaDeFechaInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpBuscarReservaDeFechaInicioPropertyChange(evt);
+            }
+        });
+
+        dtpBuscarReservasAFechaInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpBuscarReservasAFechaInicioPropertyChange(evt);
+            }
+        });
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("De:");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("A:");
+
+        lblErrorBuscarReservas.setForeground(new java.awt.Color(255, 0, 0));
+
+        tBtnFiltrarPorFechaInicio.setText("Filtrar por fecha de inicio");
+        tBtnFiltrarPorFechaInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tBtnFiltrarPorFechaInicioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCabeceraReservasLayout = new javax.swing.GroupLayout(pnlCabeceraReservas);
         pnlCabeceraReservas.setLayout(pnlCabeceraReservasLayout);
         pnlCabeceraReservasLayout.setHorizontalGroup(
@@ -682,15 +715,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
                         .addComponent(btnNuevaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tbtnVerPendientesDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
                         .addComponent(btnEliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlCabeceraReservasLayout.createSequentialGroup()
                         .addComponent(btnModificarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tbtnVerPendientesEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dtpBuscarReservasAFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dtpBuscarReservaDeFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tBtnFiltrarPorFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblErrorBuscarReservas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tbtnVerPendientesEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                    .addComponent(tbtnVerPendientesDevolucion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         pnlCabeceraReservasLayout.setVerticalGroup(
@@ -699,13 +743,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevaReserva)
-                    .addComponent(tbtnVerPendientesDevolucion))
+                    .addComponent(tbtnVerPendientesDevolucion)
+                    .addComponent(dtpBuscarReservaDeFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificarReserva)
-                    .addComponent(tbtnVerPendientesEntrega))
+                    .addComponent(tbtnVerPendientesEntrega)
+                    .addComponent(dtpBuscarReservasAFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(btnEliminarReserva)
+                .addGroup(pnlCabeceraReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminarReserva)
+                    .addComponent(lblErrorBuscarReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tBtnFiltrarPorFechaInicio))
                 .addContainerGap())
         );
 
@@ -995,43 +1046,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_pMenuItemNuevaReservaActionPerformed
 
-    private void btnNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaReservaActionPerformed
-        nuevaReserva();
-    }//GEN-LAST:event_btnNuevaReservaActionPerformed
-
-    private void btnModificarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarReservaActionPerformed
-        if (tblReservas.getSelectedRow() != -1) {
-            int i = tblReservas.convertRowIndexToModel(tblReservas.getSelectedRow());
-            Reserva r = listaReservasVistaReserva.get(i);
-
-            DiaCrearModificarReserva diaModificarReserva = new DiaCrearModificarReserva(this, true, r);
-            diaModificarReserva.setLocationRelativeTo(this);
-            diaModificarReserva.setVisible(true);
-        }
-    }//GEN-LAST:event_btnModificarReservaActionPerformed
-
-    private void btnEliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarReservaActionPerformed
-        if (tblReservas.getSelectedRow() != -1) {
-            int i = tblReservas.convertRowIndexToModel(tblReservas.getSelectedRow());
-            Reserva r = listaReservasVistaReserva.get(i);
-
-            int dialogResult = JOptionPane.showConfirmDialog(
-                    null,
-                    "Vas a eliminar la reserva seleccionada\n¿Estás seguro?",
-                    "Eliminar reserva",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (dialogResult == JOptionPane.YES_OPTION) {
-
-                em.getTransaction().begin();
-                em.remove(r);
-                em.getTransaction().commit();
-
-                cargarDatos();
-            }
-        }
-    }//GEN-LAST:event_btnEliminarReservaActionPerformed
-
     private void menuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevoClienteActionPerformed
         nuevoCliente();
     }//GEN-LAST:event_menuItemNuevoClienteActionPerformed
@@ -1045,56 +1059,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuItemNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevaReservaActionPerformed
         nuevaReserva();
     }//GEN-LAST:event_menuItemNuevaReservaActionPerformed
-
-    private void tbtnVerPendientesDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesDevolucionActionPerformed
-        if (tbtnVerPendientesDevolucion.isSelected()) {
-
-            List<Reserva> results = new ArrayList<>();
-            listaReservasVistaReserva.clear();
-
-            TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByDevuelto", Reserva.class);
-
-            query.setParameter("devuelto", false);
-
-            results = query.getResultList();
-
-            for (Reserva r : results) {
-                listaReservasVistaReserva.add(r);
-            }
-
-            tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
-
-            tbtnVerPendientesEntrega.setSelected(false);
-
-        } else {
-            cargarReservas();
-        }
-    }//GEN-LAST:event_tbtnVerPendientesDevolucionActionPerformed
-
-    private void tbtnVerPendientesEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesEntregaActionPerformed
-        if (tbtnVerPendientesEntrega.isSelected()) {
-
-            List<Reserva> results = new ArrayList<>();
-            listaReservasVistaReserva.clear();
-
-            TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByEntregado", Reserva.class);
-
-            query.setParameter("entregado", false);
-
-            results = query.getResultList();
-
-            for (Reserva r : results) {
-                listaReservasVistaReserva.add(r);
-            }
-
-            tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
-
-            tbtnVerPendientesDevolucion.setSelected(false);
-
-        } else {
-            cargarReservas();
-        }
-    }//GEN-LAST:event_tbtnVerPendientesEntregaActionPerformed
 
     private void btnNuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoVehiculoActionPerformed
         nuevoVehiculo();
@@ -1253,6 +1217,131 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarReservasExcelActionPerformed
 
+    private void tBtnFiltrarPorFechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tBtnFiltrarPorFechaInicioActionPerformed
+        if (tBtnFiltrarPorFechaInicio.isSelected()) {
+            if (dtpBuscarReservaDeFechaInicio.getDate() != null && dtpBuscarReservasAFechaInicio.getDate() != null) {
+                List<Reserva> results = new ArrayList<>();
+                listaReservasVistaReserva.clear();
+
+                TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByFechaInicio", Reserva.class);
+
+                query.setParameter("deFechaInicio", dtpBuscarReservaDeFechaInicio.getDate());
+                query.setParameter("aFechaInicio", dtpBuscarReservasAFechaInicio.getDate());
+
+                results = query.getResultList();
+
+                cargarListaTablaReservas(results);
+
+                tbtnVerPendientesEntrega.setSelected(false);
+                tbtnVerPendientesDevolucion.setSelected(false);
+            } else {
+                lblErrorBuscarReservas.setText("Debes seleccionar las fechas.");
+                tBtnFiltrarPorFechaInicio.setSelected(false);
+            }
+        } else {
+            cargarReservas();
+        }
+    }//GEN-LAST:event_tBtnFiltrarPorFechaInicioActionPerformed
+
+    private void tbtnVerPendientesEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesEntregaActionPerformed
+        if (tbtnVerPendientesEntrega.isSelected()) {
+
+            List<Reserva> results = new ArrayList<>();
+            listaReservasVistaReserva.clear();
+
+            TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByEntregado", Reserva.class);
+
+            query.setParameter("entregado", false);
+
+            results = query.getResultList();
+
+            cargarListaTablaReservas(results);
+
+            tbtnVerPendientesDevolucion.setSelected(false);
+            tBtnFiltrarPorFechaInicio.setSelected(false);
+
+        } else {
+            cargarReservas();
+        }
+    }//GEN-LAST:event_tbtnVerPendientesEntregaActionPerformed
+
+    private void tbtnVerPendientesDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVerPendientesDevolucionActionPerformed
+        if (tbtnVerPendientesDevolucion.isSelected()) {
+
+            List<Reserva> results = new ArrayList<>();
+            listaReservasVistaReserva.clear();
+
+            TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByDevuelto", Reserva.class);
+
+            query.setParameter("devuelto", false);
+
+            results = query.getResultList();
+
+            cargarListaTablaReservas(results);
+
+            tbtnVerPendientesEntrega.setSelected(false);
+            tBtnFiltrarPorFechaInicio.setSelected(false);
+
+        } else {
+            cargarReservas();
+        }
+    }//GEN-LAST:event_tbtnVerPendientesDevolucionActionPerformed
+
+    private void btnEliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarReservaActionPerformed
+        if (tblReservas.getSelectedRow() != -1) {
+            int i = tblReservas.convertRowIndexToModel(tblReservas.getSelectedRow());
+            Reserva r = listaReservasVistaReserva.get(i);
+
+            int dialogResult = JOptionPane.showConfirmDialog(
+                    null,
+                    "Vas a eliminar la reserva seleccionada\n¿Estás seguro?",
+                    "Eliminar reserva",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (dialogResult == JOptionPane.YES_OPTION) {
+
+                em.getTransaction().begin();
+                em.remove(r);
+                em.getTransaction().commit();
+
+                cargarDatos();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarReservaActionPerformed
+
+    private void btnModificarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarReservaActionPerformed
+        if (tblReservas.getSelectedRow() != -1) {
+            int i = tblReservas.convertRowIndexToModel(tblReservas.getSelectedRow());
+            Reserva r = listaReservasVistaReserva.get(i);
+
+            DiaCrearModificarReserva diaModificarReserva = new DiaCrearModificarReserva(this, true, r);
+            diaModificarReserva.setLocationRelativeTo(this);
+            diaModificarReserva.setVisible(true);
+        }
+    }//GEN-LAST:event_btnModificarReservaActionPerformed
+
+    private void btnNuevaReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaReservaActionPerformed
+        nuevaReserva();
+    }//GEN-LAST:event_btnNuevaReservaActionPerformed
+
+    private void dtpBuscarReservaDeFechaInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpBuscarReservaDeFechaInicioPropertyChange
+        tBtnFiltrarPorFechaInicio.setSelected(false);
+    }//GEN-LAST:event_dtpBuscarReservaDeFechaInicioPropertyChange
+
+    private void dtpBuscarReservasAFechaInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpBuscarReservasAFechaInicioPropertyChange
+        tBtnFiltrarPorFechaInicio.setSelected(false);
+    }//GEN-LAST:event_dtpBuscarReservasAFechaInicioPropertyChange
+
+    private void cargarListaTablaReservas(List<Reserva> results) {
+        for (Reserva r : results) {
+            listaReservasVistaReserva.add(r);
+        }
+
+        tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
+
+        lblErrorBuscarReservas.setText("");
+    }
+
     private File seleccionarArchivoXml() {
         File archivo = null;
 
@@ -1330,6 +1419,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoVehiculo;
     private java.util.List<model.Cliente> clienteList;
     private javax.persistence.Query clienteQuery;
+    private org.jdesktop.swingx.JXDatePicker dtpBuscarReservaDeFechaInicio;
+    private org.jdesktop.swingx.JXDatePicker dtpBuscarReservasAFechaInicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1341,6 +1434,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblBuscarClienteNombre;
     private javax.swing.JLabel lblBuscarVehiculoMarca;
     private javax.swing.JLabel lblBuscarVehiculoModelo;
+    private javax.swing.JLabel lblErrorBuscarReservas;
     private javax.swing.JLabel lblTituloListaReservasVistaClientes;
     private javax.swing.JLabel lblTituloListaReservasVistaVehiculos;
     private javax.swing.JLabel lblTituloPanelClientes;
@@ -1372,6 +1466,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlPrincipalVehiculos;
     private javax.swing.JPanel pnlReservas;
     private javax.swing.JPanel pnlVehiculos;
+    private javax.swing.JToggleButton tBtnFiltrarPorFechaInicio;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblReservas;
     private javax.swing.JTable tblVehiculos;

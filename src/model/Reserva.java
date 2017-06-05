@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r")
     , @NamedQuery(name = "Reserva.findById", query = "SELECT r FROM Reserva r WHERE r.id = :id")
-    , @NamedQuery(name = "Reserva.findByFechaInicio", query = "SELECT r FROM Reserva r WHERE r.fechaInicio = :fechaInicio")
+    , @NamedQuery(name = "Reserva.findByFechaInicio", query = "SELECT r FROM Reserva r WHERE r.fechaInicio BETWEEN :deFechaInicio AND :aFechaInicio")
     , @NamedQuery(name = "Reserva.findByFechaFin", query = "SELECT r FROM Reserva r WHERE r.fechaFin = :fechaFin")
     , @NamedQuery(name = "Reserva.findByLitrosGasolina", query = "SELECT r FROM Reserva r WHERE r.litrosGasolina = :litrosGasolina")
     , @NamedQuery(name = "Reserva.findByEntregado", query = "SELECT r FROM Reserva r WHERE r.entregado = :entregado")
