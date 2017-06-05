@@ -41,10 +41,6 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         for (Cliente c : padre.listaClientesVistaClientes) {
             cmbClientes.addItem(c);
         }
-
-//        for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
-//            cmbVehiculos.addItem(v);
-//        }
     }
 
     /**
@@ -58,10 +54,6 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
         reserva = new Reserva();
 
         cmbClientes.addItem(cliente);
-
-//        for (Vehiculo v : padre.listaVehiculosVistaVehiculos) {
-//            cmbVehiculos.addItem(v);
-//        }
     }
 
     /**
