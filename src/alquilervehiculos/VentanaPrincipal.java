@@ -153,17 +153,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         TypedQuery<Cliente> queryClientes = em.createNamedQuery("Cliente.findAll", Cliente.class);
         List<Cliente> clientes = queryClientes.getResultList();
 
-        // Ordenamos los clientes por apellidos
-        clientes.sort(new Comparator<Cliente>() {
-            @Override
-            public int compare(Cliente o1, Cliente o2) {
-                return o1.getApellidos().compareTo(o2.getApellidos());
-            }
-        });
-
-        for (Cliente c : clientes) {
-            listaClientesVistaClientes.add(c);
-        }
+        cargarListaTablaClientes(clientes);
 
         tblClientes.setModel(new TableModelClientes(listaClientesVistaClientes));
 
@@ -190,17 +180,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         TypedQuery<Vehiculo> queryVehiculos = em.createNamedQuery("Vehiculo.findAll", Vehiculo.class);
         List<Vehiculo> vehiculos = queryVehiculos.getResultList();
 
-        // Ordenamos los vehículos por marca
-        vehiculos.sort(new Comparator<Vehiculo>() {
-            @Override
-            public int compare(Vehiculo o1, Vehiculo o2) {
-                return o1.getMarca().compareTo(o2.getMarca());
-            }
-        });
-
-        for (Vehiculo v : vehiculos) {
-            listaVehiculosVistaVehiculos.add(v);
-        }
+        cargarListaTablaVehiculos(vehiculos);
 
         tblVehiculos.setModel(new TableModelVehiculos(listaVehiculosVistaVehiculos));
     }
@@ -1015,9 +995,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         List<Cliente> results = query.getResultList();
 
-        for (Cliente c : results) {
-            listaClientesVistaClientes.add(c);
-        }
+        cargarListaTablaClientes(results);
 
         tblClientes.setModel(new TableModelClientes(listaClientesVistaClientes));
 
@@ -1116,9 +1094,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         List<Vehiculo> results = query.getResultList();
 
-        for (Vehiculo v : results) {
-            listaVehiculosVistaVehiculos.add(v);
-        }
+        cargarListaTablaVehiculos(results);
 
         tblVehiculos.setModel(new TableModelVehiculos(listaVehiculosVistaVehiculos));
 
@@ -1438,7 +1414,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void cargarListaTablaReservas(List<Reserva> results) {
         ordenaPorFechaInicio(results);
-        
+
         for (Reserva r : results) {
             listaReservasVistaReserva.add(r);
         }
@@ -1446,6 +1422,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
 
         lblErrorBuscarReservas.setText("");
+    }
+
+    private void cargarListaTablaVehiculos(List<Vehiculo> vehiculos) {
+        // Ordenamos los vehículos por marca
+        vehiculos.sort(new Comparator<Vehiculo>() {
+            @Override
+            public int compare(Vehiculo o1, Vehiculo o2) {
+                return o1.getMarca().compareTo(o2.getMarca());
+            }
+        });
+
+        for (Vehiculo v : vehiculos) {
+            listaVehiculosVistaVehiculos.add(v);
+        }
+    }
+
+    private void cargarListaTablaClientes(List<Cliente> clientes) {
+        // Ordenamos los clientes por apellidos
+        clientes.sort(new Comparator<Cliente>() {
+            @Override
+            public int compare(Cliente o1, Cliente o2) {
+                return o1.getApellidos().compareTo(o2.getApellidos());
+            }
+        });
+
+        for (Cliente c : clientes) {
+            listaClientesVistaClientes.add(c);
+        }
     }
 
     private File seleccionarArchivoXml() {
