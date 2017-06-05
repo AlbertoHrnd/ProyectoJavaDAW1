@@ -176,20 +176,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         TypedQuery<Reserva> queryReservas = em.createNamedQuery("Reserva.findAll", Reserva.class);
         List<Reserva> reservas = queryReservas.getResultList();
 
-        // Ordenamos las reservas por fecha de inicio descendiente
-        reservas.sort(new Comparator<Reserva>() {
-            @Override
-            public int compare(Reserva o1, Reserva o2) {
-                if (o1.getFechaInicio().before(o2.getFechaInicio())) {
-                    return 1;
-                }
-                return -1;
-            }
-        });
-
-        for (Reserva r : reservas) {
-            listaReservasVistaReserva.add(r);
-        }
+        cargarListaTablaReservas(reservas);
 
         tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
 
