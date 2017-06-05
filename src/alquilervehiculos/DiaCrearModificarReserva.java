@@ -464,8 +464,10 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
 
             if (!listaVehiculos.contains(vehiculo)) {
                 lblError.setText("<html>El vehículo seleccionado no está disponible<br>en ese rango de fechas.</html>");
+                btnGuardar.setEnabled(false);
             } else {
                 lblError.setText("");
+                btnGuardar.setEnabled(true);
             }
 
         } else {
