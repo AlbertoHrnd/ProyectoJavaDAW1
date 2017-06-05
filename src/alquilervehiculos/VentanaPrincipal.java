@@ -1193,21 +1193,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void tbtnFiltrarPorFechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnFiltrarPorFechaInicioActionPerformed
         if (tbtnFiltrarPorFechaInicio.isSelected()) {
             if (dtpBuscarReservaDeFecha.getDate() != null && dtpBuscarReservasAFecha.getDate() != null) {
-                List<Reserva> results = new ArrayList<>();
-                listaReservasVistaReserva.clear();
+                if (dtpBuscarReservaDeFecha.getDate().before(dtpBuscarReservasAFecha.getDate())) {
+                    List<Reserva> results = new ArrayList<>();
+                    listaReservasVistaReserva.clear();
 
-                TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByFechaInicio", Reserva.class);
+                    TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByFechaInicio", Reserva.class);
 
-                query.setParameter("deFecha", dtpBuscarReservaDeFecha.getDate());
-                query.setParameter("aFecha", dtpBuscarReservasAFecha.getDate());
+                    query.setParameter("deFecha", dtpBuscarReservaDeFecha.getDate());
+                    query.setParameter("aFecha", dtpBuscarReservasAFecha.getDate());
 
-                results = query.getResultList();
+                    results = query.getResultList();
 
-                cargarListaTablaReservas(results);
+                    cargarListaTablaReservas(results);
 
-                tbtnVerPendientesEntrega.setSelected(false);
-                tbtnVerPendientesDevolucion.setSelected(false);
-                tbtnFiltrarPorFechaFin.setSelected(false);
+                    tbtnVerPendientesEntrega.setSelected(false);
+                    tbtnVerPendientesDevolucion.setSelected(false);
+                    tbtnFiltrarPorFechaFin.setSelected(false);
+                } else {
+                    lblErrorBuscarReservas.setText("Las fechas no son correctas.");
+                    tbtnFiltrarPorFechaInicio.setSelected(false);
+                }
             } else {
                 lblErrorBuscarReservas.setText("Debes seleccionar las fechas.");
                 tbtnFiltrarPorFechaInicio.setSelected(false);
@@ -1311,21 +1316,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void tbtnFiltrarPorFechaFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnFiltrarPorFechaFinActionPerformed
         if (tbtnFiltrarPorFechaFin.isSelected()) {
             if (dtpBuscarReservaDeFecha.getDate() != null && dtpBuscarReservasAFecha.getDate() != null) {
-                List<Reserva> results = new ArrayList<>();
-                listaReservasVistaReserva.clear();
+                if (dtpBuscarReservaDeFecha.getDate().before(dtpBuscarReservasAFecha.getDate())) {
+                    List<Reserva> results = new ArrayList<>();
+                    listaReservasVistaReserva.clear();
 
-                TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByFechaFin", Reserva.class);
+                    TypedQuery<Reserva> query = em.createNamedQuery("Reserva.findByFechaFin", Reserva.class);
 
-                query.setParameter("deFecha", dtpBuscarReservaDeFecha.getDate());
-                query.setParameter("aFecha", dtpBuscarReservasAFecha.getDate());
+                    query.setParameter("deFecha", dtpBuscarReservaDeFecha.getDate());
+                    query.setParameter("aFecha", dtpBuscarReservasAFecha.getDate());
 
-                results = query.getResultList();
+                    results = query.getResultList();
 
-                cargarListaTablaReservas(results);
+                    cargarListaTablaReservas(results);
 
-                tbtnVerPendientesEntrega.setSelected(false);
-                tbtnVerPendientesDevolucion.setSelected(false);
-                tbtnFiltrarPorFechaInicio.setSelected(false);
+                    tbtnVerPendientesEntrega.setSelected(false);
+                    tbtnVerPendientesDevolucion.setSelected(false);
+                    tbtnFiltrarPorFechaInicio.setSelected(false);
+                } else {
+                    lblErrorBuscarReservas.setText("Las fechas no son correctas.");
+                    tbtnFiltrarPorFechaFin.setSelected(false);
+                }
             } else {
                 lblErrorBuscarReservas.setText("Debes seleccionar las fechas.");
                 tbtnFiltrarPorFechaFin.setSelected(false);
@@ -1354,7 +1364,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_pMenuItemModificarReservaActionPerformed
-    
+
     private void cargarListaReservasDeClienteSeleccionado() {
         if (tblClientes.getSelectedRow() != -1) {
             int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
@@ -1378,7 +1388,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             lstReservasVistaClientes.setModel(listaReservasVistaClientes);
         }
     }
-    
+
     private void cargarListaReservasDeVehiculoSeleccionado() {
         if (tblVehiculos.getSelectedRow() != -1) {
             int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
@@ -1413,8 +1423,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
 
         lblErrorBuscarReservas.setText("");
-    }    
-    
+    }
+
     private void ordenaPorFechaInicio(List<Reserva> listaReservas) {
         listaReservas.sort(new Comparator<Reserva>() {
             @Override
