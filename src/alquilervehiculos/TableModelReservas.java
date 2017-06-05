@@ -49,9 +49,9 @@ public class TableModelReservas extends AbstractTableModel {
             case (0):
                 return r.getClienteId().getNombre() + " " + r.getClienteId().getApellidos();
             case (1):
-                return Utils.formateaFecha(r.getFechaInicio());
+                return r.getFechaInicio();
             case (2):
-                return Utils.formateaFecha(r.getFechaFin());
+                return r.getFechaFin();
             case (3):
                 return r.getEntregado();
             case (4):

@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -150,6 +151,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
         tblReservas.setModel(new TableModelReservas(listaReservasVistaReserva));
+
+        // Añadimos los CellRenderers para que nos muestre la fecha en el formato deseado
+        tblReservas.setDefaultRenderer(Date.class, new TableDateRenderer());
     }
 
     public void cargarVehiculos() {
