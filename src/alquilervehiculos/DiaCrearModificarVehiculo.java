@@ -9,8 +9,10 @@ import java.awt.Frame;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.swing.DefaultComboBoxModel;
 import model.Cliente;
 import model.Garaje;
 import model.Vehiculo;
@@ -61,20 +63,34 @@ public class DiaCrearModificarVehiculo extends javax.swing.JDialog {
 
         cargaGarajesDisponibles();
 
+        // Cargamos también el suyo por si el garaje está lleno
+        // y no lo incluye la consulta de garajes disponibles
+        if (((DefaultComboBoxModel) cmbGaraje.getModel()).getIndexOf(vehiculo.getGarajeId()) == -1) {
+            cmbGaraje.addItem(vehiculo.getGarajeId());
+        }
+
         cmbGaraje.setSelectedItem(vehiculo.getGarajeId());
     }
 
     private void cargaGarajesDisponibles() {
         TypedQuery<Garaje> queryGarajes = padre.em.createNamedQuery("Garaje.findAll", Garaje.class);
         List<Garaje> garajes = queryGarajes.getResultList();
-        
+
         for (Garaje g : garajes) {
-            Query disponibilidad = padre.em.createNativeQuery("SELECT COUNT(*) FROM vehiculo WHERE garaje_id = :garajeId group by garaje_id");
-            disponibilidad.setParameter("garajeId", g.getId());            
-            int ocupacion = (int) disponibilidad.getSingleResult();
-            
+            int ocupacion = 0;
+
+            Query disponibilidad = padre.em.createNativeQuery("SELECT COUNT(*) FROM Vehiculo v WHERE v.garaje_id = :garajeId group by v.garaje_id");
+            disponibilidad.setParameter("garajeId", g.getId());
+
+            try {
+                Number oc = (Number) disponibilidad.getSingleResult();
+                ocupacion = oc.intValue();
+            } catch (NoResultException nre) {
+                ocupacion = 0;
+            }
+
             if (ocupacion < g.getCapacidad()) {
-                cmbGaraje.addItem(g);               
+                cmbGaraje.addItem(g);
             }
         }
     }
