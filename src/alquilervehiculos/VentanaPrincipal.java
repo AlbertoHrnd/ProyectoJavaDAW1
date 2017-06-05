@@ -70,19 +70,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         tblVehiculos.setComponentPopupMenu(pMenuTabla);
 
         // Listeners para seleccionar la fila de la tabla cuando botón derecho
-        tblVehiculos.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent event) {
-                // Selecciona la fila en la que se pulsa el ratón
-                // Se implementa para que marque el elemento seleccionado al
-                // pulsar botón derecho sobre una fila
-                Point point = event.getPoint();
-                int currentRow = tblClientes.rowAtPoint(point);
-                tblClientes.setRowSelectionInterval(currentRow, currentRow);
-                cargarListaReservasDeVehiculoSeleccionado();
-            }
-        });
-
         tblClientes.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent event) {
@@ -93,6 +80,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 int currentRow = tblClientes.rowAtPoint(point);
                 tblClientes.setRowSelectionInterval(currentRow, currentRow);
                 cargarListaReservasDeClienteSeleccionado();
+            }
+        });
+
+        tblVehiculos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent event) {
+                // Selecciona la fila en la que se pulsa el ratón
+                // Se implementa para que marque el elemento seleccionado al
+                // pulsar botón derecho sobre una fila
+                Point point = event.getPoint();
+                int currentRow = tblVehiculos.rowAtPoint(point);
+                tblVehiculos.setRowSelectionInterval(currentRow, currentRow);
+                cargarListaReservasDeVehiculoSeleccionado();
             }
         });
 
@@ -1149,16 +1149,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (tblVehiculos.getSelectedRow() != -1) {
             int i = tblVehiculos.convertRowIndexToModel(tblVehiculos.getSelectedRow());
             Vehiculo v = listaVehiculosVistaVehiculos.get(i);
-            
+
             listaReservasVistaVehiculos.clear();
             List<Reserva> listaReservasVehiculo = v.getReservaList();
-            
+
             ordenaPorFechaInicio(listaReservasVehiculo);
-            
+
             for (Reserva r : listaReservasVehiculo) {
                 listaReservasVistaVehiculos.addElement(r);
             }
-            
+
             lstReservasVistaVehiculos.setModel(listaReservasVistaVehiculos);
         }
     }

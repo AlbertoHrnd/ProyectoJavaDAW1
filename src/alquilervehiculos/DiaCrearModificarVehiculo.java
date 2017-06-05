@@ -9,6 +9,7 @@ import java.awt.Frame;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import model.Cliente;
 import model.Garaje;
@@ -33,15 +34,10 @@ public class DiaCrearModificarVehiculo extends javax.swing.JDialog {
 
         padre = (VentanaPrincipal) parent;
         vehiculo = new Vehiculo();
-        
-        TypedQuery<Garaje> queryGarajes = padre.em.createNamedQuery("Garaje.findAll", Garaje.class);
-        List<Garaje> garajes = queryGarajes.getResultList();
-        
-        for (Garaje g : garajes) {
-            cmbGaraje.addItem(g);
-        }
+
+        cargaGarajesDisponibles();
     }
-    
+
     /**
      * Constructor para modificar el vehículo que se le pasa
      *
@@ -62,15 +58,25 @@ public class DiaCrearModificarVehiculo extends javax.swing.JDialog {
         txtModelo.setText(vehiculo.getModelo());
         txtMatricula.setText(vehiculo.getMatricula());
         txtColor.setText(vehiculo.getColor());
-        
+
+        cargaGarajesDisponibles();
+
+        cmbGaraje.setSelectedItem(vehiculo.getGarajeId());
+    }
+
+    private void cargaGarajesDisponibles() {
         TypedQuery<Garaje> queryGarajes = padre.em.createNamedQuery("Garaje.findAll", Garaje.class);
         List<Garaje> garajes = queryGarajes.getResultList();
         
         for (Garaje g : garajes) {
-            cmbGaraje.addItem(g);
+            Query disponibilidad = padre.em.createNativeQuery("SELECT COUNT(*) FROM vehiculo WHERE garaje_id = :garajeId group by garaje_id");
+            disponibilidad.setParameter("garajeId", g.getId());            
+            int ocupacion = (int) disponibilidad.getSingleResult();
+            
+            if (ocupacion < g.getCapacidad()) {
+                cmbGaraje.addItem(g);               
+            }
         }
-        
-        cmbGaraje.setSelectedItem(vehiculo.getGarajeId());
     }
 
     /**
@@ -215,7 +221,7 @@ public class DiaCrearModificarVehiculo extends javax.swing.JDialog {
                 vehiculo.setModelo(txtModelo.getText());
                 vehiculo.setColor(txtColor.getText());
                 vehiculo.setMatricula(txtMatricula.getText());
-                
+
                 garaje = (Garaje) cmbGaraje.getSelectedItem();
                 vehiculo.setGarajeId(garaje);
 

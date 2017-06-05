@@ -479,10 +479,9 @@ public class DiaCrearModificarReserva extends javax.swing.JDialog {
                 for (Vehiculo v : listaVehiculos) {
                     cmbVehiculos.addItem(v);
                 }
-                // Si la reserva ya existe en BBDD
-                // (Esto significa que la reserva no es una nueva reserva)
-                // Añadimos como seleccionado por defecto el vehículo propio
-                // de la reserva
+                // Si estuviéramos modificando una reserva
+                // añadimos como seleccionado por defecto el vehículo propio
+                // de la reserva en el caso en que esté disponible.
                 if (reserva.getId() != null) {
                     cmbVehiculos.setSelectedItem(reserva.getVehiculoId());
                 }
