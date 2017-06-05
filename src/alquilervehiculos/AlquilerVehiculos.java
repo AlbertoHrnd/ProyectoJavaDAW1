@@ -16,8 +16,9 @@ public class AlquilerVehiculos {
      */
     public static void main(String[] args) {
         VentanaPrincipal v = new VentanaPrincipal();
+        v.setTitle("Alquiler de Vehículos");
         v.setLocationRelativeTo(null);
         v.setVisible(true);
     }
-    
+
 }

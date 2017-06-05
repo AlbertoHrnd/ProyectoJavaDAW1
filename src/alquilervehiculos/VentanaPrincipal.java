@@ -8,11 +8,14 @@ package alquilervehiculos;
 import almacenamiento.ExportarClientes;
 import almacenamiento.ExportarReservas;
 import almacenamiento.ExportarVehiculos;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -50,6 +53,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
+
+        URL iconURL = getClass().getResource("/img/icono.png");
+        Image im = Toolkit.getDefaultToolkit().getImage(iconURL);
+        this.setIconImage(im);
 
         pnlVehiculos.setVisible(false);
         pnlReservas.setVisible(false);
