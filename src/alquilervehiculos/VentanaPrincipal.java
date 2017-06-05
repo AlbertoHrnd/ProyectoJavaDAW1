@@ -13,7 +13,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -54,13 +53,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
 
-        URL iconURL = getClass().getResource("/img/icono.png");
-        Image im = Toolkit.getDefaultToolkit().getImage(iconURL);
-        this.setIconImage(im);
+        CargarIcono();
 
         pnlVehiculos.setVisible(false);
         pnlClientes.setVisible(false);
 
+        inicializarListas();
+
+        inicializarTablas();
+
+        cargarDatos();
+    }
+
+    private void CargarIcono() {
+        URL iconURL = getClass().getResource("/img/icono.png");
+        Image im = Toolkit.getDefaultToolkit().getImage(iconURL);
+        this.setIconImage(im);
+    }
+
+    private void inicializarListas() {
         listaClientesVistaClientes = new ArrayList<>();
         listaReservasVistaClientes = new DefaultListModel<>();
 
@@ -69,6 +80,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         listaVehiculosVistaVehiculos = new ArrayList<>();
         listaReservasVistaVehiculos = new DefaultListModel<>();
 
+        // Listeners para seleccionar la fila de la lista cuando botón derecho
+        lstReservasVistaClientes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent event) {
+                // Selecciona la fila en la que se pulsa el ratón
+                // Se implementa para que marque el elemento seleccionado al
+                // pulsar botón derecho sobre una fila
+                int row = lstReservasVistaClientes.locationToIndex(event.getPoint());
+                lstReservasVistaClientes.setSelectedIndex(row);
+                cargarListaReservasDeClienteSeleccionado();
+            }
+        });
+
+        lstReservasVistaVehiculos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent event) {
+                // Selecciona la fila en la que se pulsa el ratón
+                // Se implementa para que marque el elemento seleccionado al
+                // pulsar botón derecho sobre una fila
+                int row = lstReservasVistaVehiculos.locationToIndex(event.getPoint());
+                lstReservasVistaVehiculos.setSelectedIndex(row);
+                cargarListaReservasDeVehiculoSeleccionado();
+            }
+        });
+    }
+
+    private void inicializarTablas() {
         tblClientes.setAutoCreateRowSorter(true);
         tblClientes.setComponentPopupMenu(pMenuTabla);
 
@@ -103,8 +141,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 cargarListaReservasDeVehiculoSeleccionado();
             }
         });
-
-        cargarDatos();
     }
 
     public void cargarDatos() {
@@ -198,6 +234,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         clienteList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : clienteQuery.getResultList();
         pMenuTabla = new javax.swing.JPopupMenu();
         pMenuItemNuevaReserva = new javax.swing.JMenuItem();
+        pMenuLista = new javax.swing.JPopupMenu();
+        pMenuItemModificarReserva = new javax.swing.JMenuItem();
         pnlContenedor = new javax.swing.JPanel();
         pnlClientes = new javax.swing.JPanel();
         lblTituloPanelClientes = new javax.swing.JLabel();
@@ -279,6 +317,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         pMenuTabla.add(pMenuItemNuevaReserva);
+
+        pMenuItemModificarReserva.setText("Modificar Reserva");
+        pMenuItemModificarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pMenuItemModificarReservaActionPerformed(evt);
+            }
+        });
+        pMenuLista.add(pMenuItemModificarReserva);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1139,12 +1185,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             listaReservasVistaVehiculos.clear();
             List<Reserva> listaReservasVehiculo = v.getReservaList();
 
-            ordenaPorFechaInicio(listaReservasVehiculo);
+            if (!listaReservasVehiculo.isEmpty()) {
+                ordenaPorFechaInicio(listaReservasVehiculo);
 
-            for (Reserva r : listaReservasVehiculo) {
-                listaReservasVistaVehiculos.addElement(r);
+                for (Reserva r : listaReservasVehiculo) {
+                    listaReservasVistaVehiculos.addElement(r);
+                }
+
+                lstReservasVistaVehiculos.setComponentPopupMenu(pMenuLista);
+
+            } else {
+                lstReservasVistaVehiculos.setComponentPopupMenu(null);
             }
-
             lstReservasVistaVehiculos.setModel(listaReservasVistaVehiculos);
         }
     }
@@ -1170,12 +1222,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             listaReservasVistaClientes.clear();
             List<Reserva> listaReservasCLiente = c.getReservaList();
 
-            ordenaPorFechaInicio(listaReservasCLiente);
+            if (!listaReservasCLiente.isEmpty()) {
+                ordenaPorFechaInicio(listaReservasCLiente);
 
-            for (Reserva r : listaReservasCLiente) {
-                listaReservasVistaClientes.addElement(r);
+                for (Reserva r : listaReservasCLiente) {
+                    listaReservasVistaClientes.addElement(r);
+                }
+
+                lstReservasVistaClientes.setComponentPopupMenu(pMenuLista);
+
+            } else {
+                lstReservasVistaClientes.setComponentPopupMenu(null);
             }
-
             lstReservasVistaClientes.setModel(listaReservasVistaClientes);
         }
     }
@@ -1315,10 +1373,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Reserva r = listaReservasVistaReserva.get(i);
 
             int dialogResult = JOptionPane.showConfirmDialog(
-                null,
-                "Vas a eliminar la reserva seleccionada\n¿Estás seguro?",
-                "Eliminar reserva",
-                JOptionPane.YES_NO_OPTION);
+                    null,
+                    "Vas a eliminar la reserva seleccionada\n¿Estás seguro?",
+                    "Eliminar reserva",
+                    JOptionPane.YES_NO_OPTION);
 
             if (dialogResult == JOptionPane.YES_OPTION) {
 
@@ -1372,6 +1430,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             cargarReservas();
         }
     }//GEN-LAST:event_tbtnFiltrarPorFechaFinActionPerformed
+
+    private void pMenuItemModificarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pMenuItemModificarReservaActionPerformed
+        if (pnlClientes.isVisible()) {
+            if (lstReservasVistaClientes.getSelectedIndex() != -1) {
+                Reserva r = (Reserva) lstReservasVistaClientes.getSelectedValue();
+
+                DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true, r);
+                diaCrearReserva.setLocationRelativeTo(this);
+                diaCrearReserva.setVisible(true);
+            }
+        } else if (pnlVehiculos.isVisible()) {
+            if (lstReservasVistaVehiculos.getSelectedIndex() != -1) {
+                Reserva r = (Reserva) lstReservasVistaVehiculos.getSelectedValue();
+
+                DiaCrearModificarReserva diaCrearReserva = new DiaCrearModificarReserva(this, true, r);
+                diaCrearReserva.setLocationRelativeTo(this);
+                diaCrearReserva.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_pMenuItemModificarReservaActionPerformed
 
     private void cargarListaTablaReservas(List<Reserva> results) {
         for (Reserva r : results) {
@@ -1492,7 +1570,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemVerReservas;
     private javax.swing.JMenuItem menuItemVerVehiculos;
     private javax.swing.JMenu menuVer;
+    private javax.swing.JMenuItem pMenuItemModificarReserva;
     private javax.swing.JMenuItem pMenuItemNuevaReserva;
+    private javax.swing.JPopupMenu pMenuLista;
     private javax.swing.JPopupMenu pMenuTabla;
     private javax.swing.JPanel pnlCabeceraClientes;
     private javax.swing.JPanel pnlCabeceraReservas;
