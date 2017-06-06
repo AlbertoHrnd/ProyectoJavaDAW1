@@ -27,6 +27,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import model.Agencia;
 import model.Cliente;
 import model.Reserva;
 import model.Vehiculo;
@@ -142,6 +143,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     public void cargarDatos() {
+        // Si no hay Agencia (Acabamos de crear las tablas)
+        // Creamos la agencia por defecto
+        if (em.find(Agencia.class, 1) == null) {
+            em.getTransaction().begin();
+            Agencia a = new Agencia("Agencia Principal", "C/ Correos, 1 ");
+            em.persist(a);
+            em.getTransaction().commit();
+        }
         cargarClientes();
         cargarVehiculos();
         cargarReservas();
@@ -1530,7 +1539,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         diaCrearVehiculo.setLocationRelativeTo(this);
         diaCrearVehiculo.setVisible(true);
     }
-    
+
     private void nuevoGaraje() {
         DiaCrearGaraje diaCrearGaraje = new DiaCrearGaraje(this, true);
         diaCrearGaraje.setLocationRelativeTo(this);

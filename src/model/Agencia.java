@@ -63,6 +63,11 @@ public class Agencia implements Serializable {
         this.direccion = direccion;
     }
 
+    public Agencia(String nombre, String direccion) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -120,5 +125,5 @@ public class Agencia implements Serializable {
     public String toString() {
         return "model.Agencia[ id=" + id + " ]";
     }
-    
+
 }
