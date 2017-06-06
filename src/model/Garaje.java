@@ -45,6 +45,9 @@ public class Garaje implements Serializable {
     private int capacidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "garajeId")
     private List<Vehiculo> vehiculoList;
+    @Basic(optional = false)
+    @Column(name = "direccion")
+    private String direccion;
 
     public Garaje() {
     }
@@ -56,6 +59,11 @@ public class Garaje implements Serializable {
     public Garaje(Integer id, int capacidad) {
         this.id = id;
         this.capacidad = capacidad;
+    }
+
+    public Garaje(int capacidad, String direccion) {
+        this.capacidad = capacidad;
+        this.direccion = direccion;
     }
 
     public Integer getId() {
@@ -72,6 +80,14 @@ public class Garaje implements Serializable {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     @XmlTransient
@@ -105,7 +121,6 @@ public class Garaje implements Serializable {
 
     @Override
     public String toString() {
-        return id + " - Capacidad: " + capacidad;
+        return direccion + " - Capacidad: " + capacidad;
     }
-    
 }

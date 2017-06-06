@@ -268,6 +268,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuItemNuevoCliente = new javax.swing.JMenuItem();
         menuItemNuevaReserva = new javax.swing.JMenuItem();
         menuItemNuevoVehiculo = new javax.swing.JMenuItem();
+        menuItemNuevoGaraje = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemCerrar = new javax.swing.JMenuItem();
         menuVer = new javax.swing.JMenu();
@@ -911,6 +912,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         menuArchivo.add(menuItemNuevoVehiculo);
+
+        menuItemNuevoGaraje.setText("Nuevo Garaje");
+        menuItemNuevoGaraje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemNuevoGarajeActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(menuItemNuevoGaraje);
         menuArchivo.add(jSeparator1);
 
         menuItemCerrar.setText("Salir");
@@ -1365,6 +1374,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pMenuItemModificarReservaActionPerformed
 
+    private void menuItemNuevoGarajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNuevoGarajeActionPerformed
+        nuevoGaraje();
+    }//GEN-LAST:event_menuItemNuevoGarajeActionPerformed
+
     private void cargarListaReservasDeClienteSeleccionado() {
         if (tblClientes.getSelectedRow() != -1) {
             int i = tblClientes.convertRowIndexToModel(tblClientes.getSelectedRow());
@@ -1517,6 +1530,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         diaCrearVehiculo.setLocationRelativeTo(this);
         diaCrearVehiculo.setVisible(true);
     }
+    
+    private void nuevoGaraje() {
+        DiaCrearGaraje diaCrearGaraje = new DiaCrearGaraje(this, true);
+        diaCrearGaraje.setLocationRelativeTo(this);
+        diaCrearGaraje.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager AlquilerVehiculosPUEntityManager;
@@ -1566,6 +1585,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemCerrar;
     private javax.swing.JMenuItem menuItemNuevaReserva;
     private javax.swing.JMenuItem menuItemNuevoCliente;
+    private javax.swing.JMenuItem menuItemNuevoGaraje;
     private javax.swing.JMenuItem menuItemNuevoVehiculo;
     private javax.swing.JMenuItem menuItemVerClientes;
     private javax.swing.JMenuItem menuItemVerReservas;

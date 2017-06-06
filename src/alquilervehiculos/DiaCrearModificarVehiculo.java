@@ -232,23 +232,28 @@ public class DiaCrearModificarVehiculo extends javax.swing.JDialog {
                 && !txtMatricula.getText().trim().equals("")) {
 
             if (validaMatricula(txtMatricula.getText())) {
-
-                vehiculo.setMarca(txtMarca.getText());
-                vehiculo.setModelo(txtModelo.getText());
-                vehiculo.setColor(txtColor.getText());
-                vehiculo.setMatricula(txtMatricula.getText());
-
+                
                 garaje = (Garaje) cmbGaraje.getSelectedItem();
-                vehiculo.setGarajeId(garaje);
+                
+                if (garaje!=null) {
+                    vehiculo.setMarca(txtMarca.getText());
+                    vehiculo.setModelo(txtModelo.getText());
+                    vehiculo.setColor(txtColor.getText());
+                    vehiculo.setMatricula(txtMatricula.getText());
 
-                padre.em.getTransaction().begin();
-                padre.em.persist(vehiculo);
-                padre.em.getTransaction().commit();
+                    vehiculo.setGarajeId(garaje);
 
-                padre.cargarVehiculos();
-                padre.repaint();
+                    padre.em.getTransaction().begin();
+                    padre.em.persist(vehiculo);
+                    padre.em.getTransaction().commit();
 
-                this.dispose();
+                    padre.cargarVehiculos();
+                    padre.repaint();
+
+                    this.dispose();
+                } else {
+                    lblError.setText("Debe seleccionar un garaje.");
+                }                
 
             } else {
                 lblError.setText("La matrícula introducida no es válida.");
